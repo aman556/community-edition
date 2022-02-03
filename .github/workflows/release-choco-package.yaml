@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Config credentials
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
+          GITHUB_TOKEN: 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
         run: |
           git config --global pull.rebase true
           git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
