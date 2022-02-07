@@ -24,7 +24,7 @@ jobs:
 
       - name: Update Choco Package
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
+          GITHUB_TOKEN: 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
         shell: bash
         run: |
           GITHUB_REF="${{ github.ref }}"
