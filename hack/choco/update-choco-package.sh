@@ -16,7 +16,7 @@ MY_DIR="$(git rev-parse --show-toplevel)"
  
 pushd "${temp_dir}"
 
-TCE_REPO="https://github.com/vmware-tanzu/community-edition" 
+TCE_REPO="https://github.com/aman556/community-edition.git" 
 TCE_REPO_RELEASES_URL="https://github.com/vmware-tanzu/community-edition/releases"
 TCE_DARWIN_TAR_BALL_FILE="tce-darwin-amd64-${version}.tar.gz"
 TCE_LINUX_TAR_BALL_FILE="tce-linux-amd64-${version}.tar.gz"
@@ -58,7 +58,7 @@ git checkout -b "${PR_BRANCH}"
 # Replacing old version with the latest stable released version.
 # Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
 sed -i -e 's/\($releaseVersion =\).*/$releaseVersion ='"'${version}'"'/g' hack/choco/tools/chocolateyinstall.ps1
-rm -fv "${MY_DIR}"/../hack/choco/tools/chocolateyinstall.ps1-e
+rm -fv hack/choco/tools/chocolateyinstall.ps1-e
  
 version="${version:1}"
 sed -i -e 's/\(<version>\).*\(<\/version>\)/<version>'"${version}"'\<\/version>/g' hack/choco/tanzu-community-edition.nuspec
