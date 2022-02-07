@@ -58,15 +58,15 @@ git checkout -b "${PR_BRANCH}"
 # Replacing old version with the latest stable released version.
 # Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
 sed -i -e 's/\($releaseVersion =\).*/$releaseVersion ='"'${version}'"'/g' "${MY_DIR}"/../hack/choco/tools/chocolateyinstall.ps1
-rm -fv "${MY_DIR}"/hack/choco/tools/chocolateyinstall.ps1-e
+rm -fv "${MY_DIR}"/../hack/choco/tools/chocolateyinstall.ps1-e
  
 version="${version:1}"
-sed -i -e 's/\(<version>\).*\(<\/version>\)/<version>'"${version}"'\<\/version>/g' "${MY_DIR}"/../hack/choco/tanzu-community-edition.nuspec
-rm -fv "${MY_DIR}"/../hack/choco/tanzu-community-edition.nuspec-e
+sed -i -e 's/\(<version>\).*\(<\/version>\)/<version>'"${version}"'\<\/version>/g' hack/choco/tanzu-community-edition.nuspec
+rm -fv hack/choco/tanzu-community-edition.nuspec-e
  
  
-git add "${MY_DIR}"/../hack/choco/tools/chocolateyinstall.ps1
-git add "${MY_DIR}"/../hack/choco/tanzu-community-edition.nuspec
+git add hack/choco/tools/chocolateyinstall.ps1
+git add hack/choco/tanzu-community-edition.nuspec
  
 git commit -m "auto-generated - update tce choco install scripts for version ${version}"
  
