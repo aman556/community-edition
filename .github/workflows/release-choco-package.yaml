@@ -12,11 +12,11 @@ jobs:
     steps:
       - name: Config credentials
         env:
-          GITHUB_TOKEN: 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
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
         run: |
           git config --global pull.rebase true
-          git config --global user.name aman556
-          git config --global user.email amansharma14041998@gmail.com
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
           git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
 
       - name: Check out code
@@ -24,7 +24,7 @@ jobs:
 
       - name: Update Choco Package
         env:
-          GITHUB_TOKEN: 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
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
         shell: bash
         run: |
           GITHUB_REF="${{ github.ref }}"
