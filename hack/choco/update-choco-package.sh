@@ -15,7 +15,8 @@ temp_dir=$(mktemp -d)
 MY_DIR="$(git rev-parse --show-toplevel)"
  
 pushd "${temp_dir}"
- 
+
+TCE_REPO="https://github.com/vmware-tanzu/community-edition" 
 TCE_REPO_RELEASES_URL="https://github.com/vmware-tanzu/community-edition/releases"
 TCE_DARWIN_TAR_BALL_FILE="tce-darwin-amd64-${version}.tar.gz"
 TCE_LINUX_TAR_BALL_FILE="tce-linux-amd64-${version}.tar.gz"
@@ -41,6 +42,10 @@ wget "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" || {
    exit 1
 }
  
+git clone "${TCE_REPO}"
+
+cd community-edition
+
 # make sure we are on main branch before checking out
 git checkout main
  
