@@ -16,12 +16,11 @@ MY_DIR="$(git rev-parse --show-toplevel)"
  
 pushd "${temp_dir}"
 
-TCE_REPO="https://github.com/aman556/community-edition.git" 
+TCE_REPO="https://github.com/aman556/community-edition/" 
 TCE_REPO_RELEASES_URL="https://github.com/vmware-tanzu/community-edition/releases"
 TCE_DARWIN_TAR_BALL_FILE="tce-darwin-amd64-${version}.tar.gz"
 TCE_LINUX_TAR_BALL_FILE="tce-linux-amd64-${version}.tar.gz"
 TCE_CHECKSUMS_FILE="tce-checksums.txt"
-TCE_CHOCO_TAP_REPO="https://github.com/vmware-tanzu/community-edition/hack/choco"
  
 echo "Checking if the necessary files exist for the TCE ${version} release"
  
@@ -72,8 +71,8 @@ git commit -m "auto-generated - update tce choco install scripts for version ${v
  
 git push origin "${PR_BRANCH}"
  
-gh pr create --repo ${TCE_CHOCO_TAP_REPO} --title "auto-generated - update tce choco install scripts for version ${version}" --body "auto-generated - update tce choco install scripts for version ${version}"
+gh pr create --repo ${TCE_REPO} --title "auto-generated - update tce choco install scripts for version ${version}" --body "auto-generated - update tce choco install scripts for version ${version}"
  
-gh pr merge --repo ${TCE_CHOCO_TAP_REPO} "${PR_BRANCH}" --squash --delete-branch --auto
+gh pr merge --repo ${TCE_REPO} "${PR_BRANCH}" --squash --delete-branch --auto
  
 popd
