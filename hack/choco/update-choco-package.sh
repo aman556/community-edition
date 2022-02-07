@@ -57,7 +57,7 @@ git checkout -b "${PR_BRANCH}"
  
 # Replacing old version with the latest stable released version.
 # Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
-sed -i -e 's/\($releaseVersion =\).*/$releaseVersion ='"'${version}'"'/g' "${MY_DIR}"/../hack/choco/tools/chocolateyinstall.ps1
+sed -i -e 's/\($releaseVersion =\).*/$releaseVersion ='"'${version}'"'/g' hack/choco/tools/chocolateyinstall.ps1
 rm -fv "${MY_DIR}"/../hack/choco/tools/chocolateyinstall.ps1-e
  
 version="${version:1}"
