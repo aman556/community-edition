@@ -16,20 +16,20 @@ temp_dir=$(mktemp -d)
  
 pushd "${temp_dir}"
 
-TCE_REPO="https://github.com/vmware-tanzu/community-edition" 
+TCE_REPO="https://github.com/aman556/community-edition" 
 TCE_REPO_RELEASES_URL="https://github.com/vmware-tanzu/community-edition/releases"
 TCE_WINDOWS_TAR_BALL_FILE="tce-darwin-amd64-${version}.tar.gz"
 TCE_CHECKSUMS_FILE="tce-checksums.txt"
  
 echo "Checking if the necessary files exist for the TCE ${version} release"
  
-curl -f -I -L \
-   "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_WINDOWS_TAR_BALL_FILE}" > /dev/null || {
+wget --spider -q \
+   "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_WINDOWS_TAR_BALL_FILE}" || {
        echo "${TCE_WINDOWS_TAR_BALL_FILE} is not accessible in TCE ${version} release"
        exit 1
    }
  
-wget "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" || {
+wget --spider -q "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" || {
    echo "${TCE_CHECKSUMS_FILE} is not accessible in TCE ${version} release"
    exit 1
 }
@@ -47,16 +47,16 @@ git checkout -b "${PR_BRANCH}"
 # Handle differences in MacOS sed
 SEDARGS=""
 if [ "$(uname -s)" = "Darwin" ]; then
-    SEDARGS="-e"
+    SEDARGS="-ie"
 fi
 
 # Replacing old version with the latest stable released version.
-# Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
-sed $SEDARGS "s/\(\$releaseVersion =\).*/\$releaseVersion = ""'${version}'""/g" hack/choco/tools/chocolateyinstall.ps1
- 
+sed $SEDARGS "s/\(\$releaseVersion =\).*/\$releaseVersion = ""'${version}'""/g" hack/choco/tools/chocolateyinstall.ps1 
+rm -fv hack/choco/tools/chocolateyinstall.ps1-e
+
 version="${version:1}"
 sed $SEDARGS "s/\(<version>\).*\(<\/version>\)/<version>""${version}""\<\/version>/g" hack/choco/tanzu-community-edition.nuspec
- 
+rm -fv hack/choco/tanzu-community-edition.nuspec-e
  
 git add hack/choco/tools/chocolateyinstall.ps1
 git add hack/choco/tanzu-community-edition.nuspec
