@@ -51,11 +51,11 @@ if [ "$(uname -s)" = "Darwin" ]; then
 fi
 
 # Replacing old version with the latest stable released version.
-sed $SEDARGS -e "s/\(\$releaseVersion =\).*/\$releaseVersion = ""'${version}'""/g" hack/choco/tools/chocolateyinstall.ps1 
+sed -i -e "s/\(\$releaseVersion =\).*/\$releaseVersion = ""'${version}'""/g" hack/choco/tools/chocolateyinstall.ps1 
 rm -fv hack/choco/tools/chocolateyinstall.ps1-e
 
 version="${version:1}"
-sed $SEDARGS -e "s/\(<version>\).*\(<\/version>\)/<version>""${version}""\<\/version>/g" hack/choco/tanzu-community-edition.nuspec
+sed -i -e "s/\(<version>\).*\(<\/version>\)/<version>""${version}""\<\/version>/g" hack/choco/tanzu-community-edition.nuspec
 rm -fv hack/choco/tanzu-community-edition.nuspec-e
  
 git add hack/choco/tools/chocolateyinstall.ps1
