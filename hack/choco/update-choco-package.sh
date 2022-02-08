@@ -47,15 +47,15 @@ git checkout -b "${PR_BRANCH}"
 # Handle differences in MacOS sed
 SEDARGS=""
 if [ "$(uname -s)" = "Darwin" ]; then
-    SEDARGS="-ie"
+    SEDARGS="-i"
 fi
 
 # Replacing old version with the latest stable released version.
-sed $SEDARGS "s/\(\$releaseVersion =\).*/\$releaseVersion = ""'${version}'""/g" hack/choco/tools/chocolateyinstall.ps1 
+sed $SEDARGS -e "s/\(\$releaseVersion =\).*/\$releaseVersion = ""'${version}'""/g" hack/choco/tools/chocolateyinstall.ps1 
 rm -fv hack/choco/tools/chocolateyinstall.ps1-e
 
 version="${version:1}"
-sed $SEDARGS "s/\(<version>\).*\(<\/version>\)/<version>""${version}""\<\/version>/g" hack/choco/tanzu-community-edition.nuspec
+sed $SEDARGS -e "s/\(<version>\).*\(<\/version>\)/<version>""${version}""\<\/version>/g" hack/choco/tanzu-community-edition.nuspec
 rm -fv hack/choco/tanzu-community-edition.nuspec-e
  
 git add hack/choco/tools/chocolateyinstall.ps1
