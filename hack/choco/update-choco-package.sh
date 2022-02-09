@@ -45,13 +45,13 @@ PR_BRANCH="update-tce-to-${version}-${RANDOM}"
 git checkout -b "${PR_BRANCH}"
 
 # Handle differences in MacOS sed
-SEDARGS=" "
+SEDARGS=""
 if [ "$(uname -s)" = "Darwin" ]; then
-    SEDARGS="-i -e"
+    SEDARGS="-i"
 fi
 
 # Replacing old version with the latest stable released version.
-sed $SEDARGS "s/\(\$releaseVersion =\).*/\$releaseVersion = ""'${version}'""/g" hack/choco/tools/chocolateyinstall.ps1 
+sed $SEDARGS -e "s/\(\$releaseVersion =\).*/\$releaseVersion = ""'${version}'""/g" hack/choco/tools/chocolateyinstall.ps1 
 rm -fv hack/choco/tools/chocolateyinstall.ps1-e
 
 version="${version:1}"
