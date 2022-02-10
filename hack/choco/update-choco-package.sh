@@ -16,7 +16,7 @@ temp_dir=$(mktemp -d)
  
 pushd "${temp_dir}"
 
-TCE_REPO="https://github.com/aman556/community-edition" 
+TCE_REPO="https://github.com/vmware-tanzu/community-edition" 
 TCE_REPO_RELEASES_URL="https://github.com/vmware-tanzu/community-edition/releases"
 TCE_WINDOWS_TAR_BALL_FILE="tce-darwin-amd64-${version}.tar.gz"
 TCE_CHECKSUMS_FILE="tce-checksums.txt"
@@ -34,7 +34,8 @@ wget --spider -q "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_F
    exit 1
 }
  
-git clone --depth 1 "${TCE_REPO}"
+# Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
+git clone "${TCE_REPO}"
 
 cd community-edition
  
@@ -44,7 +45,9 @@ PR_BRANCH="update-tce-to-${version}-${RANDOM}"
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
 git checkout -b "${PR_BRANCH}"
 
+
 # Replacing old version with the latest stable released version.
+# Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
 sed -i -e "s/\(\$releaseVersion =\).*/\$releaseVersion = ""'${version}'""/g" hack/choco/tools/chocolateyinstall.ps1 
 rm -fv hack/choco/tools/chocolateyinstall.ps1-e
 
