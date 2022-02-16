@@ -1,0 +1,22 @@
+name: Check - Chocolatey Package
+
+on:
+  pull_request:
+    types:
+      - released
+    paths:
+      - "hack/choco/"
+
+jobs:
+  e2e-chocolatey-package-upgrade-test:
+    name: Upgrade Test Chocolatey Package
+    runs-on: windows-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v1
+
+      - name: Run Upgrade Tests
+        shell: powershell
+        run: |
+          cd hack\choco
+          .\test\choco-upgrade-test.ps1

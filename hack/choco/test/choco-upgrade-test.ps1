@@ -14,25 +14,37 @@ $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 
 Write-Host "${parentDir}" -ForegroundColor Cyan
 
-#& "${parentDir}\test\e2e-test.ps1"
+# Testing for current release
+& "${parentDir}\e2e-test.ps1"
+
+Write-Host "Checking if the necessary files exist for the TCE $version release"
 
 invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_WINDOWS_TAR_BALL_FILE}" -DisableKeepAlive -UseBasicParsing -Method head
 invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" -DisableKeepAlive -UseBasicParsing -Method head
 
 
 # Updating the version in tanzu-community-edition-temp.nuspec file
-$text = Get-Content .\hack\choco\tanzu-community-edition.nuspec -Raw 
-New-Item -Path "${parentDir}\.."  -Name "tanzu-community-edition-temp.nuspec" -ItemType "file" -Value $text
+
+$textnuspec = Get-Content .\tanzu-community-edition.nuspec -Raw
+$temptextnuspec = Get-Content .\tanzu-community-edition.nuspec -Raw 
 $Regex = [Regex]::new("(?<=<version>)(.*)(?=<\/version>)")
-$oldVersion = $Regex.Match($text)
-$text = $text.Replace( $oldVersion.value  , $version )
-Set-Content -Path .\hack\choco\tanzu-community-edition.nuspec -Value $text
+$oldVersion = $Regex.Match($textnuspec)
+$textnuspec = $textnuspec.Replace( $oldVersion.value  , $version )
+Set-Content -Path .\tanzu-community-edition.nuspec -Value $textnuspec
+
 
 # Updating the version in chocolateyinstall.ps1 file
-$text = Get-Content .\hack\choco\tools\chocolateyinstall.ps1 -Raw 
-New-Item -Path "${parentDir}\..\tools"  -Name "chocolateyinstall-temp.ps1" -ItemType "file" -Value $text
-$Regex = [Regex]::new("(?<=releaseVersion = ')(.*)(?=')")
-$oldVersion = $Regex.Match($text)
-$text = $text.Replace( $oldVersion.value  , $version )
-Set-Content -Path .\hack\choco\tools\chocolateyinstall.ps1 -Value $text
 
+$textchocoinstall = Get-Content .\tools\chocolateyinstall.ps1 -Raw 
+$temptextchocoinstall = Get-Content .\tools\chocolateyinstall.ps1 -Raw 
+$Regex = [Regex]::new("(?<=releaseVersion = ')(.*)(?=')")
+$oldVersion = $Regex.Match($textchocoinstall)
+$textchocoinstall = $textchocoinstall.Replace( $oldVersion.value  , $version )
+Set-Content -Path .\tools\chocolateyinstall.ps1 -Value $textchocoinstall
+
+# Testing for latest release
+& "${parentDir}\e2e-test.ps1"
+
+# Updating files for current version
+Set-Content -Path .\tanzu-community-edition.nuspec -NoNewline -Value $temptextnuspec
+Set-Content -Path .\tools\chocolateyinstall.ps1 -NoNewline -Value $temptextchocoinstall
