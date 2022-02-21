@@ -63,7 +63,7 @@ rm -fv hack/choco/tools/chocolateyinstall.ps1-e
 git add hack/choco/tools/chocolateyinstall.ps1
 git add hack/choco/tanzu-community-edition.nuspec
  
-git commit -m "auto-generated - update tce choco install scripts for version ${version}"
+git commit -s -m "auto-generated - update tce choco install scripts for version ${version}"
  
 git push origin "${PR_BRANCH}"
  
