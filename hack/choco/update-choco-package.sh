@@ -34,7 +34,7 @@ wget --spider -q "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_F
    exit 1
 }
 
-windows_amd64_shasum=$(grep "${TCE_WINDOWS_TAR_BALL_FILE}" ${TCE_CHECKSUMS_FILE} | cut -d ' ' -f 1)
+windows_amd64_shasum=$(grep "${TCE_WINDOWS_ZIP_FILE}" ${TCE_CHECKSUMS_FILE} | cut -d ' ' -f 1)
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
 git clone "${TCE_REPO}"
