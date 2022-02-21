@@ -50,8 +50,8 @@ PR_BRANCH="update-tce-to-${version}-${RANDOM}"
 git checkout -b "${PR_BRANCH}"
 
 # setup
-git config user.name github-actions
-git config user.email github-actions@github.com
+git config user.name aman556
+git config user.email amansharma14041998@gmail.com
 
 # Replacing old version with the latest stable released version.
 # Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
