@@ -29,7 +29,7 @@ wget --spider -q \
        exit 1
    }
  
-wget --spider -q "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" || {
+wget "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" || {
    echo "${TCE_CHECKSUMS_FILE} is not accessible in TCE ${version} release"
    exit 1
 }
