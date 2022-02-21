@@ -18,7 +18,7 @@ pushd "${temp_dir}"
 
 TCE_REPO="https://github.com/aman556/community-edition" 
 TCE_REPO_RELEASES_URL="https://github.com/vmware-tanzu/community-edition/releases"
-TCE_WINDOWS_TAR_BALL_FILE="tce-darwin-amd64-${version}.tar.gz"
+TCE_WINDOWS_TAR_BALL_FILE="tce-windows-amd64-${version}.tar.gz"
 TCE_CHECKSUMS_FILE="tce-checksums.txt"
  
 echo "Checking if the necessary files exist for the TCE ${version} release"
@@ -33,7 +33,9 @@ wget --spider -q "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_F
    echo "${TCE_CHECKSUMS_FILE} is not accessible in TCE ${version} release"
    exit 1
 }
- 
+
+windows_amd64_shasum=$(grep "${TCE_WINDOWS_TAR_BALL_FILE}" ${TCE_CHECKSUMS_FILE} | cut -d ' ' -f 1)
+
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
 git clone "${TCE_REPO}"
 
@@ -54,7 +56,10 @@ rm -fv hack/choco/tools/chocolateyinstall.ps1-e
 version="${version:1}"
 sed -i -e "s/\(<version>\).*\(<\/version>\)/<version>""${version}""\<\/version>/g" hack/choco/tanzu-community-edition.nuspec
 rm -fv hack/choco/tanzu-community-edition.nuspec-e
- 
+
+sed -i -e "s/\(\$checksum64 =\).*/\$releaseVersion = ""'${windows_amd64_shasum}'""/g" hack/choco/tools/chocolateyinstall.ps1 
+rm -fv hack/choco/tools/chocolateyinstall.ps1-e
+
 git add hack/choco/tools/chocolateyinstall.ps1
 git add hack/choco/tanzu-community-edition.nuspec
  
