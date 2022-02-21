@@ -34,6 +34,8 @@ wget "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" || {
    exit 1
 }
 
+
+
 windows_amd64_shasum=$(grep "${TCE_WINDOWS_ZIP_FILE}" ${TCE_CHECKSUMS_FILE} | cut -d ' ' -f 1)
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
@@ -47,6 +49,9 @@ PR_BRANCH="update-tce-to-${version}-${RANDOM}"
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
 git checkout -b "${PR_BRANCH}"
 
+# setup
+git config user.name github-actions
+git config user.email github-actions@github.com
 
 # Replacing old version with the latest stable released version.
 # Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
