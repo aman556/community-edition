@@ -1,7 +1,7 @@
 name: Check - Chocolatey Upgrade test
 
 on:
-  pull_request:
+  release:
     types:
       - released
     paths:
