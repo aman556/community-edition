@@ -16,7 +16,7 @@ temp_dir=$(mktemp -d)
  
 pushd "${temp_dir}"
 
-TCE_REPO="https://github.com/aman556/community-edition.git" 
+TCE_REPO="https://github.com/aman556/community-edition" 
 TCE_REPO_RELEASES_URL="https://github.com/vmware-tanzu/community-edition/releases"
 TCE_WINDOWS_ZIP_FILE="tce-windows-amd64-${version}.zip"
 TCE_CHECKSUMS_FILE="tce-checksums.txt"
