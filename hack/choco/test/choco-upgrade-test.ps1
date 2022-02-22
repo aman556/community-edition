@@ -20,26 +20,31 @@ Write-Host "${parentDir}" -ForegroundColor Cyan
 Write-Host "Checking if the necessary files exist for the TCE $version release"
 
 invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_WINDOWS_TAR_BALL_FILE}" -DisableKeepAlive -UseBasicParsing -Method head
-invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" -DisableKeepAlive -UseBasicParsing -Method head
+invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" -OutFile "${parentDir}/tce-checksums.txt"
 
+$Checksum64 = (Get-Content ./test/tce-checksums.txt -Tail 3).split()[0]
 
 # Updating the version in tanzu-community-edition-temp.nuspec file
-
 $textnuspec = Get-Content .\tanzu-community-edition.nuspec -Raw
 $temptextnuspec = Get-Content .\tanzu-community-edition.nuspec -Raw 
 $Regex = [Regex]::new("(?<=<version>)(.*)(?=<\/version>)")
 $oldVersion = $Regex.Match($textnuspec)
-$textnuspec = $textnuspec.Replace( $oldVersion.value  , $version )
+$textnuspec = $textnuspec.Replace( $oldVersion.value  , $version.Substring(1, $version.Length-1) )
 Set-Content -Path .\tanzu-community-edition.nuspec -Value $textnuspec
 
 
 # Updating the version in chocolateyinstall.ps1 file
-
 $textchocoinstall = Get-Content .\tools\chocolateyinstall.ps1 -Raw 
 $temptextchocoinstall = Get-Content .\tools\chocolateyinstall.ps1 -Raw 
 $Regex = [Regex]::new("(?<=releaseVersion = ')(.*)(?=')")
 $oldVersion = $Regex.Match($textchocoinstall)
 $textchocoinstall = $textchocoinstall.Replace( $oldVersion.value  , $version )
+
+# Updating the Checksum64 in chocolateyinstall.ps1 file
+$Regex = [Regex]::new("(?<=checksum64 = ')(.*)(?=')")
+$oldChecksum64 = $Regex.Match($textchocoinstall)
+$textchocoinstall = $textchocoinstall.Replace( $oldChecksum64.value  , $Checksum64 )
+
 Set-Content -Path .\tools\chocolateyinstall.ps1 -Value $textchocoinstall
 
 # Testing for latest release
@@ -48,3 +53,5 @@ Set-Content -Path .\tools\chocolateyinstall.ps1 -Value $textchocoinstall
 # Updating files for current version
 Set-Content -Path .\tanzu-community-edition.nuspec -NoNewline -Value $temptextnuspec
 Set-Content -Path .\tools\chocolateyinstall.ps1 -NoNewline -Value $temptextchocoinstall
+
+Remove-Item "${parentDir}/tce-checksums.txt"
