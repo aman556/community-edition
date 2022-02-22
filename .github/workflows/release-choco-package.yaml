@@ -8,6 +8,7 @@ on:
 jobs:
   update-choco-package:
     name: Update Choco Package
+    if: github.repository == 'vmware-tanzu/community-edition'
     runs-on: ubuntu-latest
     steps:
       - name: Config credentials
