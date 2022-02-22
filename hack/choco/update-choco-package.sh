@@ -16,7 +16,7 @@ temp_dir=$(mktemp -d)
  
 pushd "${temp_dir}"
 
-TCE_REPO="https://github.com/aman556/community-edition" 
+TCE_REPO="https://github.com/vmware-tanzu/community-edition" 
 TCE_REPO_RELEASES_URL="https://github.com/vmware-tanzu/community-edition/releases"
 TCE_WINDOWS_ZIP_FILE="tce-windows-amd64-${version}.zip"
 TCE_CHECKSUMS_FILE="tce-checksums.txt"
@@ -33,8 +33,6 @@ wget "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" || {
    echo "${TCE_CHECKSUMS_FILE} is not accessible in TCE ${version} release"
    exit 1
 }
-
-
 
 windows_amd64_shasum=$(grep "${TCE_WINDOWS_ZIP_FILE}" ${TCE_CHECKSUMS_FILE} | cut -d ' ' -f 1)
 
