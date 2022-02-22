@@ -1,4 +1,4 @@
-name: Check - Chocolatey Package
+name: Check - Chocolatey Upgrade test
 
 on:
   pull_request:
@@ -18,5 +18,7 @@ jobs:
       - name: Run Upgrade Tests
         shell: powershell
         run: |
+          GITHUB_REF="${{ github.ref }}"
+          version=${GITHUB_REF/refs\/tags\//}
           cd hack\choco
-          .\test\choco-upgrade-test.ps1
+          .\test\choco-upgrade-test.ps1 ${version}
