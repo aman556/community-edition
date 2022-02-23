@@ -1,10 +1,17 @@
 # Copyright 2021-2022 VMware Tanzu Community Edition contributors. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+param (
+    # TCE release version argument
+    [Parameter(Mandatory=$True)]
+    [string]$version,
+)
+
 $ErrorActionPreference = 'Stop';
 
-If ($args[0]) {""} Else { Write-Error "TCE version argument empty. Example usage: ./hack/choco/test/choco-upgrade-test.ps1 v0.10.0" }
-$version = $args[0]
+if ((Test-Path env:GITHUB_TOKEN) -eq $False) {
+  throw "GITHUB_TOKEN environment variable is not set"
+}
 
 $parentDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $TCE_REPO = "https://github.com/vmware-tanzu/community-edition" 
