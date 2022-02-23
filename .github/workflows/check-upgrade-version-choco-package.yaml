@@ -12,20 +12,13 @@ jobs:
     name: Upgrade Test Chocolatey Package
     runs-on: windows-latest
     steps:
-      - name: Config credentials
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
-        run: |
-          git config --global pull.rebase true
-          git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
-
       - name: Check out code
         uses: actions/checkout@v1
 
       - name: Run Upgrade Tests
         shell: powershell
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
         run: |
           cd hack\choco
           .\test\choco-upgrade-test.ps1 -version ${{ github.event.inputs.release_version }}
