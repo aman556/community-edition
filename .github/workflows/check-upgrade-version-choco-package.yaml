@@ -6,6 +6,11 @@ on:
       - released
     paths:
       - "hack/choco/"
+    workflow_dispatch:
+      inputs:
+        release_version:
+          description: "Release version that has to be tested"
+          required: true
 
 jobs:
   e2e-chocolatey-package-upgrade-test:
