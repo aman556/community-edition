@@ -4,7 +4,7 @@
 param (
     # TCE release version argument
     [Parameter(Mandatory=$True)]
-    [string]$version,
+    [string]$version
 )
 
 $ErrorActionPreference = 'Stop';
