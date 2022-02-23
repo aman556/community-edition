@@ -23,5 +23,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
         run: |
-          hack\choco\test\choco-upgrade-test.ps1 v0.10.0
+          cd hack\choco
+          test\choco-upgrade-test.ps1 v0.10.0
 
