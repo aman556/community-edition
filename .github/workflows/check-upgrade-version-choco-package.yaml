@@ -1,11 +1,6 @@
 name: Check - Chocolatey Upgrade test
 
 on:
-  release:
-    types:
-      - released
-    paths:
-      - "hack/choco/"
   workflow_dispatch:
     inputs:
       release_version:
