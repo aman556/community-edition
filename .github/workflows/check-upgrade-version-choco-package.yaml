@@ -26,6 +26,6 @@ jobs:
           cd hack\choco
           $GITHUB_REF="${{github.ref}}"
           echo "${GITHUB_REF}"
-          $version= $GITHUB_REF.Substring($GITHUB_REF.IndexOf("v"),$GITHUB_REF.Length)
+          $version= $GITHUB_REF.Substring($GITHUB_REF.IndexOf("v"),$GITHUB_REF.Length-1)
           echo "${version}"
 
