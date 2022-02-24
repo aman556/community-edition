@@ -55,15 +55,15 @@ cd homebrew-tanzu
 # make sure we are on main branch before checking out
 git checkout main
 
-# setup
- git config user.name aman556
- git config user.email amansharma14041998@gmail.com
 
 PR_BRANCH="update-tce-to-${version}-${RANDOM}"
 
 # Random number in branch name in case there's already some branch for the version update,
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
 git checkout -b "${PR_BRANCH}"
+
+git config user.name aman556
+git config user.email amansharma14041998@gmail.com
 
 # Replacing old version with the latest stable released version.
 # Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
