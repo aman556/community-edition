@@ -25,7 +25,7 @@ jobs:
         run: |
           cd hack\choco
           $GITHUB_REF="${{github.ref}}"
-          echo "${GITHUB_REF}"
-          $version= $GITHUB_REF.Substring($GITHUB_REF.IndexOf("v"),$GITHUB_REF.Length-1)
+          $pos=$GITHUB_REF.IndexOf("v")
+          $version= $GITHUB_REF.Substring($pos)
           echo "${version}"
 
