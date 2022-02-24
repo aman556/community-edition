@@ -56,8 +56,8 @@ cd homebrew-tanzu
 git checkout main
 
 # setup
- git config user.name github-actions
- git config user.email github-actions@github.com
+ git config user.name aman556
+ git config user.email amansharma14041998@gmail.com
 
 PR_BRANCH="update-tce-to-${version}-${RANDOM}"
 
