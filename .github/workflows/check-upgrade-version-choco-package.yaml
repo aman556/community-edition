@@ -1,11 +1,6 @@
 name: Check - Chocolatey Upgrade test
 
 on:
-  workflow_dispatch:
-    inputs:
-      release_version:
-        description: "Release version that has to be tested"
-        required: true
   release:
     types:
       - released
@@ -27,5 +22,5 @@ jobs:
           $GITHUB_REF="${{github.ref}}"
           $pos=$GITHUB_REF.IndexOf("v")
           $version= $GITHUB_REF.Substring($pos)
-          echo "${version}"
+          test\choco-upgrade-test.ps1 -version ${version}
 
