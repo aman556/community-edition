@@ -24,5 +24,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
         run: |
           cd hack\choco
-          test\choco-upgrade-test.ps1 -version ${{ github.event.inputs.release_version }}
+          GITHUB_REF=${{github.ref}}
+          echo "${GITHUB_REF}"
+         
 
