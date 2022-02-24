@@ -16,7 +16,7 @@ if ((Test-Path env:GITHUB_TOKEN) -eq $False) {
 $parentDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $TCE_REPO = "https://github.com/vmware-tanzu/community-edition" 
 $TCE_REPO_RELEASES_URL = "https://github.com/vmware-tanzu/community-edition/releases"
-$TCE_WINDOWS_ZIP_FILE = "tce-windows-amd64-${version}.tar.gz"
+$TCE_WINDOWS_ZIP_FILE="tce-windows-amd64-${version}.zip"
 $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 
 Write-Host "${parentDir}" -ForegroundColor Cyan
@@ -36,7 +36,7 @@ $textnuspec = Get-Content .\tanzu-community-edition.nuspec -Raw
 $temptextnuspec = Get-Content .\tanzu-community-edition.nuspec -Raw 
 $Regex = [Regex]::new("(?<=<version>)(.*)(?=<\/version>)")
 $oldVersion = $Regex.Match($textnuspec)
-$textnuspec = $textnuspec.Replace( $oldVersion.value  , $version.Substring(1, $version.Length-1) )
+$textnuspec = $textnuspec.Replace( $oldVersion.value  , $version.Substring(1) )
 Set-Content -Path .\tanzu-community-edition.nuspec -Value $textnuspec
 
 
