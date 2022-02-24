@@ -9,17 +9,21 @@ set -o pipefail
 set -o xtrace
 
 version="${1:?TCE version argument empty. Example usage: ./hack/homebrew/update-homebrew-package.sh v0.10.0}"
-: "${GITHUB_TOKEN:?GITHUB_TOKEN is not set}"
+#: "${GITHUB_TOKEN:?GITHUB_TOKEN is not set}"
 
 temp_dir=$(mktemp -d)
 
 pushd "${temp_dir}"
 
+updateVersionSha () {
+
+#version=$1
+
 TCE_REPO_RELEASES_URL="https://github.com/vmware-tanzu/community-edition/releases"
 TCE_DARWIN_TAR_BALL_FILE="tce-darwin-amd64-${version}.tar.gz"
 TCE_LINUX_TAR_BALL_FILE="tce-linux-amd64-${version}.tar.gz"
 TCE_CHECKSUMS_FILE="tce-checksums.txt"
-TCE_HOMEBREW_TAP_REPO="https://github.com/vmware-tanzu/homebrew-tanzu"
+TCE_HOMEBREW_TAP_REPO="https://github.com/aman556/homebrew-tanzu"
 
 echo "Checking if the necessary files exist for the TCE ${version} release"
 
@@ -51,6 +55,10 @@ cd homebrew-tanzu
 # make sure we are on main branch before checking out
 git checkout main
 
+# setup
+ git config user.name github-actions
+ git config user.email github-actions@github.com
+
 PR_BRANCH="update-tce-to-${version}-${RANDOM}"
 
 # Random number in branch name in case there's already some branch for the version update,
@@ -70,14 +78,18 @@ mv tanzu-community-edition-updated.rb tanzu-community-edition.rb
 awk "/sha256 \".*/{c+=1}{if(c==2){sub(\"sha256 \\\".*\",\"sha256 \\\"${linux_amd64_shasum}\\\"\",\$0)};print}" tanzu-community-edition.rb > tanzu-community-edition-updated.rb
 mv tanzu-community-edition-updated.rb tanzu-community-edition.rb
 
+}
+
+updateVersionSha 
+
 git add tanzu-community-edition.rb
 
-git commit -m "auto-generated - update tce homebrew formula for version ${version}"
+git commit -s -m "auto-generated - update tce homebrew formula for version ${version}"
 
 git push origin "${PR_BRANCH}"
 
-gh pr create --repo ${TCE_HOMEBREW_TAP_REPO} --title "auto-generated - update tce homebrew formula for version ${version}" --body "auto-generated - update tce homebrew formula for version ${version}"
+gh pr create --repo "${TCE_HOMEBREW_TAP_REPO}" --title "auto-generated - update tce homebrew formula for version ${version}" --body "auto-generated - update tce homebrew formula for version ${version}"
 
-gh pr merge --repo ${TCE_HOMEBREW_TAP_REPO} "${PR_BRANCH}" --squash --delete-branch --auto
+gh pr merge --repo "${TCE_HOMEBREW_TAP_REPO}" "${PR_BRANCH}" --squash --delete-branch --auto
 
 popd
