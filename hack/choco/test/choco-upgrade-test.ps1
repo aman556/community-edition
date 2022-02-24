@@ -16,7 +16,7 @@ if ((Test-Path env:GITHUB_TOKEN) -eq $False) {
 $parentDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $TCE_REPO = "https://github.com/vmware-tanzu/community-edition" 
 $TCE_REPO_RELEASES_URL = "https://github.com/vmware-tanzu/community-edition/releases"
-$TCE_WINDOWS_TAR_BALL_FILE = "tce-darwin-amd64-${version}.tar.gz"
+$TCE_WINDOWS_ZIP_FILE = "tce-windows-amd64-${version}.tar.gz"
 $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 
 Write-Host "${parentDir}" -ForegroundColor Cyan
@@ -26,7 +26,7 @@ Write-Host "${parentDir}" -ForegroundColor Cyan
 
 Write-Host "Checking if the necessary files exist for the TCE $version release"
 
-invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_WINDOWS_TAR_BALL_FILE}" -DisableKeepAlive -UseBasicParsing -Method head
+invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_WINDOWS_ZIP_FILE}" -DisableKeepAlive -UseBasicParsing -Method head
 invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" -OutFile "${parentDir}/tce-checksums.txt"
 
 $Checksum64 = (Get-Content ./test/tce-checksums.txt -Tail 3).split()[0]
