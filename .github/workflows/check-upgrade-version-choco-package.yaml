@@ -26,5 +26,6 @@ jobs:
           cd hack\choco
           $GITHUB_REF="${{github.ref}}"
           echo "${GITHUB_REF}"
-         
+          $version="${GITHUB_REF/refs\/tags\//}"
+          echo "${version}"
 
