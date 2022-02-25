@@ -26,6 +26,7 @@ jobs:
 
 
   update-choco-package:
+    needs: e2e-chocolatey-package-upgrade-test
     name: Update Choco Package
     runs-on: ubuntu-latest
     steps:
