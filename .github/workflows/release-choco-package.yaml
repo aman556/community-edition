@@ -8,8 +8,6 @@ on:
 jobs:
   e2e-chocolatey-package-upgrade-test:
     name: Upgrade Test Chocolatey Package
-    # Only run this job if we're in the main repo, not a fork.
-    if: github.repository == 'vmware-tanzu/community-edition'
     runs-on: windows-latest
     steps:
       - name: Check out code
