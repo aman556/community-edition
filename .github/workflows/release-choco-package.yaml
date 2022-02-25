@@ -23,6 +23,17 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
 
+      - name: Run Upgrade Tests
+        shell: powershell
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
+        run: |
+          cd hack\choco
+          $GITHUB_REF="${{github.ref}}"
+          $pos=$GITHUB_REF.IndexOf("v")
+          $version= $GITHUB_REF.Substring($pos)
+          test\choco-upgrade-test.ps1 -version ${version}
+
       - name: Update Choco Package
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
