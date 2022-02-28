@@ -30,6 +30,7 @@ invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_WINDOWS_ZI
 invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" -OutFile "${parentDir}/tce-checksums.txt"
 
 $Checksum64 = (Select-String -Path "./test/tce-checksums.txt" -Pattern "tce-windows-amd64-${version}.zip")[0]
+Write-Host $Checksum64
 
 # Updating the version in tanzu-community-edition-temp.nuspec file
 $textnuspec = Get-Content .\tanzu-community-edition.nuspec -Raw
