@@ -35,8 +35,10 @@ $PR_BRANCH = "update-tce-to-${version}-${RANDOM}"
 git checkout -b "${PR_BRANCH}"
 
 # setup
-git config user.name "aman556"
-git config user.email "amansharma14041998@gmail.com"
+$name = "aman556"
+$email = "amansharma14041998@gmail.com"
+git config user.name $name
+git config user.email $email
 
 
 # Testing for current release
