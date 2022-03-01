@@ -109,7 +109,7 @@ git add tanzu-community-edition.nuspec
  
 git commit -s -m "auto-generated - update tce choco install scripts for version ${version}"
  
-git push origin "${PR_BRANCH}"
+git push -u origin "${PR_BRANCH}"
  
 gh pr create --repo ${TCE_REPO} --title "auto-generated - update tce choco install scripts for version ${version}" --body "auto-generated - update tce choco install scripts for version ${version}"
  
