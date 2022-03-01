@@ -22,7 +22,6 @@ $TCE_REPO_RELEASES_URL = "https://github.com/vmware-tanzu/community-edition/rele
 $TCE_WINDOWS_ZIP_FILE="tce-windows-amd64-${version}.zip"
 $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 
-Write-Host "${parentDir}" -ForegroundColor Cyan
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
 git clone "${TCE_REPO}"
@@ -39,15 +38,14 @@ git checkout -b "${PR_BRANCH}"
 git config user.name aman556
 git config user.email amansharma14041998@gmail.com
 
-$parentDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
 # Testing for current release
-& "${parentDir}\e2e-test.ps1"
+& test\e2e-test.ps1
 
 Write-Host "Checking if the necessary files exist for the TCE $version release"
 
 invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_WINDOWS_ZIP_FILE}" -DisableKeepAlive -UseBasicParsing -Method head
-invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" -OutFile "${parentDir}/tce-checksums.txt"
+invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" -OutFile test/tce-checksums.txt
 
 $Checksum64 = ((Select-String -Path "./test/tce-checksums.txt" -Pattern "tce-windows-amd64-${version}.zip").Line.Split(" "))[0]
 
@@ -75,13 +73,10 @@ $textchocoinstall = $textchocoinstall.Replace( $oldChecksum64.value  , $Checksum
 Set-Content -Path .\tools\chocolateyinstall.ps1 -Value $textchocoinstall
 
 # Testing for latest release
-& "${parentDir}\e2e-test.ps1"
+& test\e2e-test.ps1
 
-# Updating files for current version
-#Set-Content -Path .\tanzu-community-edition.nuspec -NoNewline -Value $temptextnuspec
-#Set-Content -Path .\tools\chocolateyinstall.ps1 -NoNewline -Value $temptextchocoinstall
 
-Remove-Item "${parentDir}/tce-checksums.txt"
+Remove-Item test/tce-checksums.txt
 
 git add hack/choco/tools/chocolateyinstall.ps1
 git add hack/choco/tanzu-community-edition.nuspec
