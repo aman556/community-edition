@@ -34,25 +34,37 @@ $PR_BRANCH = "update-tce-to-${version}-${RANDOM}"
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
 git checkout -b "${PR_BRANCH}"
 
+function Set-GitUser {
+    param(
+        [Parameter(Mandatory=$true)] 
+        [ValidateLength(2,256)] 
+        [string] 
+        $name,
+        [Parameter(Mandatory=$true)] 
+        [ValidatePattern(".+\@.+\..+")] 
+        [string] 
+        $email
+    )
+    
+    process {
+        git config --global --replace-all user.name $name
+        git config --global --replace-all user.email $email
+        
+        Write-Host "Git user updated" -foregroundcolor blue
+            
+        Write-Host "user.name: " -foregroundcolor blue -nonewline
+        git config --global user.name
+        
+        Write-Host "user.email: " -foregroundcolor blue -nonewline
+        git config --global user.email   
+    }
+}
+
 # setup
-git config --global --replace-all user.name "aman556"
-git config --global --replace-all user.email "amansharma14041998@gmail.com"
+#git config --global --replace-all user.name "aman556"
+#git config --global --replace-all user.email "amansharma14041998@gmail.com"
 
-Write-Host "Git user updated" -foregroundcolor blue
-            
-Write-Host "user.name: " -foregroundcolor blue -nonewline
-git config --global user.name
-        
-Write-Host "user.email: " -foregroundcolor blue -nonewline
-git config --global user.email   
-
-Write-Host "Git user updated" -foregroundcolor blue
-            
-Write-Host "user.name: " -foregroundcolor blue -nonewline
-git config user.name
-        
-Write-Host "user.email: " -foregroundcolor blue -nonewline
-git config user.email   
+Set-GitUser "aman556" "amansharma14041998@gmail.com"
 
 # Testing for current release
 & test\e2e-test.ps1
@@ -90,7 +102,6 @@ Set-Content -Path .\tools\chocolateyinstall.ps1 -Value $textchocoinstall
 # Testing for latest release
 & test\e2e-test.ps1
 
-
 Remove-Item test/tce-checksums.txt
 
 git add tools/chocolateyinstall.ps1
@@ -98,22 +109,6 @@ git add tanzu-community-edition.nuspec
  
 git commit -s -m "auto-generated - update tce choco install scripts for version ${version}"
  
-Write-Host "Git user updated" -foregroundcolor blue
-            
-Write-Host "user.name: " -foregroundcolor blue -nonewline
-git config --global user.name
-        
-Write-Host "user.email: " -foregroundcolor blue -nonewline
-git config --global user.email   
-
-Write-Host "Git user updated" -foregroundcolor blue
-            
-Write-Host "user.name: " -foregroundcolor blue -nonewline
-git config user.name
-        
-Write-Host "user.email: " -foregroundcolor blue -nonewline
-git config user.email   
-
 git push origin "${PR_BRANCH}"
  
 gh pr create --repo ${TCE_REPO} --title "auto-generated - update tce choco install scripts for version ${version}" --body "auto-generated - update tce choco install scripts for version ${version}"
