@@ -10,6 +10,13 @@ jobs:
     name: Upgrade Test Chocolatey Package
     runs-on: windows-latest
     steps:
+      - name: Config credentials
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
+        run: |
+          git config --global pull.rebase true
+          git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
+
       - name: Check out code
         uses: actions/checkout@v1
 
@@ -18,8 +25,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
         run: |
-          git config --global pull.rebase true
-          git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
           cd hack\choco
           $GITHUB_REF="${{github.ref}}"
           $pos=$GITHUB_REF.IndexOf("v")
