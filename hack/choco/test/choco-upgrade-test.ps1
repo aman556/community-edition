@@ -13,7 +13,7 @@ if ((Test-Path env:GITHUB_TOKEN) -eq $False) {
   throw "GITHUB_TOKEN environment variable is not set"
 }
 
-$temp_dir = Join-Path $Env:Temp $(New-Guid); New-Item -Type Directory -Path $tempFolderPath | Out-Null
+$temp_dir = Join-Path $Env:Temp $(New-Guid); New-Item -Type Directory -Path $emp_dir | Out-Null
  
 Push-Location "${temp_dir}"
 
