@@ -13,6 +13,9 @@ if ((Test-Path env:GITHUB_TOKEN) -eq $False) {
   throw "GITHUB_TOKEN environment variable is not set"
 }
 
+$temp_dir = New-TemporaryFile
+ 
+Push-Location "${temp_dir}"
 
 $TCE_REPO = "https://github.com/aman556/community-edition" 
 $TCE_REPO_RELEASES_URL = "https://github.com/vmware-tanzu/community-edition/releases"
@@ -91,3 +94,4 @@ gh pr create --repo ${TCE_REPO} --title "auto-generated - update tce choco insta
  
 gh pr merge --repo ${TCE_REPO} "${PR_BRANCH}" --squash --delete-branch --auto
  
+Pop-Location "${temp_dir}"
