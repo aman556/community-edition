@@ -115,4 +115,4 @@ gh pr create --repo ${TCE_REPO} --title "auto-generated - update tce choco insta
  
 gh pr merge --repo ${TCE_REPO} "${PR_BRANCH}" --squash --delete-branch --auto
  
-Pop-Location
+Pop-Location "${temp_dir}"
