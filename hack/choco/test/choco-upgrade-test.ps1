@@ -27,7 +27,7 @@ $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 git clone "${TCE_REPO}"
 
 cd community-edition/hack/choco
- 
+$RANDOM = Get-Random
 $PR_BRANCH = "update-tce-to-${version}-${RANDOM}"
  
 # Random number in branch name in case there's already some branch for the version update,
