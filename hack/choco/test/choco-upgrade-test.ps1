@@ -26,7 +26,7 @@ git clone "${TCE_REPO}"
 
 cd community-edition
  
-PR_BRANCH="update-tce-to-${version}-${RANDOM}"
+$PR_BRANCH = "update-tce-to-${version}-${RANDOM}"
  
 # Random number in branch name in case there's already some branch for the version update,
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
