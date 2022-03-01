@@ -33,7 +33,7 @@ $PR_BRANCH = "update-tce-to-${version}-${RANDOM}"
 # Random number in branch name in case there's already some branch for the version update,
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
 git checkout -b "${PR_BRANCH}"
-git config --global credential.helper wincred
+git config –global credential.helper unset
 function Set-GitUser {
     param(
         [Parameter(Mandatory=$true)] 
