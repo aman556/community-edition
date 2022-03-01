@@ -27,7 +27,7 @@ Write-Host "${parentDir}" -ForegroundColor Cyan
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
 git clone "${TCE_REPO}"
 
-cd community-edition
+cd community-edition/hack/choco
  
 $PR_BRANCH = "update-tce-to-${version}-${RANDOM}"
  
