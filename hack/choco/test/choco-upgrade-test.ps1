@@ -33,7 +33,7 @@ $PR_BRANCH = "update-tce-to-${version}-${RANDOM}"
 # Random number in branch name in case there's already some branch for the version update,
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
 git checkout -b "${PR_BRANCH}"
-
+git config --global credential.helper wincred
 function Set-GitUser {
     param(
         [Parameter(Mandatory=$true)] 
@@ -108,8 +108,8 @@ git add tools/chocolateyinstall.ps1
 git add tanzu-community-edition.nuspec
  
 git commit -s -m "auto-generated - update tce choco install scripts for version ${version}"
- 
-git push -u origin "${PR_BRANCH}"
+
+git push origin "${PR_BRANCH}"
  
 gh pr create --repo ${TCE_REPO} --title "auto-generated - update tce choco install scripts for version ${version}" --body "auto-generated - update tce choco install scripts for version ${version}"
  
