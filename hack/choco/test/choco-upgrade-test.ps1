@@ -35,8 +35,8 @@ $PR_BRANCH = "update-tce-to-${version}-${RANDOM}"
 git checkout -b "${PR_BRANCH}"
 
 # setup
-git config --global user.name "aman556"
-git config --global user.email "amansharma14041998@gmail.com"
+git config --global --replace-all user.name "aman556"
+git config --global --replace-all user.email "amansharma14041998@gmail.com"
 
 Write-Host "Git user updated" -foregroundcolor blue
             
