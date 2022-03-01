@@ -78,8 +78,8 @@ Set-Content -Path .\tools\chocolateyinstall.ps1 -Value $textchocoinstall
 
 Remove-Item test/tce-checksums.txt
 
-git add hack/choco/tools/chocolateyinstall.ps1
-git add hack/choco/tanzu-community-edition.nuspec
+git add tools/chocolateyinstall.ps1
+git add tanzu-community-edition.nuspec
  
 git commit -s -m "auto-generated - update tce choco install scripts for version ${version}"
  
