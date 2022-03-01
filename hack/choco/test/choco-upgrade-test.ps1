@@ -35,11 +35,24 @@ $PR_BRANCH = "update-tce-to-${version}-${RANDOM}"
 git checkout -b "${PR_BRANCH}"
 
 # setup
-$name = "aman556"
-$email = "amansharma14041998@gmail.com"
-git config user.name $name
-git config user.email $email
+git config user.name "aman556"
+git config user.email "amansharma14041998@gmail.com"
 
+Write-Host "Git user updated" -foregroundcolor blue
+            
+Write-Host "user.name: " -foregroundcolor blue -nonewline
+git config --global user.name
+        
+Write-Host "user.email: " -foregroundcolor blue -nonewline
+git config --global user.email   
+
+Write-Host "Git user updated" -foregroundcolor blue
+            
+Write-Host "user.name: " -foregroundcolor blue -nonewline
+git config user.name
+        
+Write-Host "user.email: " -foregroundcolor blue -nonewline
+git config user.email   
 
 # Testing for current release
 & test\e2e-test.ps1
@@ -85,6 +98,22 @@ git add tanzu-community-edition.nuspec
  
 git commit -s -m "auto-generated - update tce choco install scripts for version ${version}"
  
+Write-Host "Git user updated" -foregroundcolor blue
+            
+Write-Host "user.name: " -foregroundcolor blue -nonewline
+git config --global user.name
+        
+Write-Host "user.email: " -foregroundcolor blue -nonewline
+git config --global user.email   
+
+Write-Host "Git user updated" -foregroundcolor blue
+            
+Write-Host "user.name: " -foregroundcolor blue -nonewline
+git config user.name
+        
+Write-Host "user.email: " -foregroundcolor blue -nonewline
+git config user.email   
+
 git push origin "${PR_BRANCH}"
  
 gh pr create --repo ${TCE_REPO} --title "auto-generated - update tce choco install scripts for version ${version}" --body "auto-generated - update tce choco install scripts for version ${version}"
