@@ -85,7 +85,7 @@ git commit -s -m "auto-generated - update tce choco install scripts for version 
 git push origin $PR_BRANCH
 
 $title =  "auto-generated - update tce choco install scripts for version $version"
-$body = "auto-generated - update tce choco install scripts for version $version"
+$body = "auto-generated - update tce choco install scripts for version $(version)"
 gh pr create --repo $TCE_REPO --title $title --body $body
  
 gh pr merge --repo $TCE_REPO $PR_BRANCH --squash --delete-branch --auto
