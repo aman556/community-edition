@@ -31,7 +31,7 @@ $RANDOM = Get-Random
 $PR_BRANCH = 'update-tce-to-$version-' + $RANDOM
  
 git checkout -b $PR_BRANCH
-git config –global credential.helper unset
+git config -global credential.helper unset
 
 
 # setup
