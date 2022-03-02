@@ -8,7 +8,7 @@ on:
 jobs:
   update-homebrew-package:
     name: Update Homebrew Package
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Config credentials
         env:
