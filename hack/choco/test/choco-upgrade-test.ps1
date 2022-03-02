@@ -10,17 +10,17 @@ param (
 $ErrorActionPreference = 'Stop';
 
 if ((Test-Path env:GITHUB_TOKEN) -eq $False) {
-  throw "GITHUB_TOKEN environment variable is not set"
+  throw 'GITHUB_TOKEN environment variable is not set'
 }
 
 $temp_dir = Join-Path $Env:Temp $(New-Guid); New-Item -Type Directory -Path $temp_dir | Out-Null
  
-Push-Location "${temp_dir}"
+Push-Location $temp_dir
 
-$TCE_REPO = "https://github.com/aman556/community-edition" 
-$TCE_REPO_RELEASES_URL = "https://github.com/vmware-tanzu/community-edition/releases"
-$TCE_WINDOWS_ZIP_FILE="tce-windows-amd64-${version}.zip"
-$TCE_CHECKSUMS_FILE = "tce-checksums.txt"
+$TCE_REPO = 'https://github.com/aman556/community-edition'
+$TCE_REPO_RELEASES_URL = 'https://github.com/vmware-tanzu/community-edition/releases'
+$TCE_WINDOWS_ZIP_FILE='tce-windows-amd64-${version}.zip'
+$TCE_CHECKSUMS_FILE = 'tce-checksums.txt'
 
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
@@ -28,26 +28,26 @@ git clone $TCE_REPO
 
 cd community-edition/hack/choco
 $RANDOM = Get-Random
-$PR_BRANCH = "update-tce-to-$version-$RANDOM"
+$PR_BRANCH = 'update-tce-to-$version-' + $RANDOM
  
-git checkout -b "${PR_BRANCH}"
+git checkout -b $PR_BRANCH
 git config –global credential.helper unset
 
 
 # setup
-git config --global --replace-all user.name "aman556"
-git config --global --replace-all user.email "amansharma14041998@gmail.com"
+git config --global --replace-all user.name 'aman556'
+git config --global --replace-all user.email 'amansharma14041998@gmail.com'
 
 
 # Testing for current release
 & test\e2e-test.ps1
 
-Write-Host "Checking if the necessary files exist for the TCE $version release"
+Write-Host 'Checking if the necessary files exist for the TCE $version release'
 
-invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_WINDOWS_ZIP_FILE}" -DisableKeepAlive -UseBasicParsing -Method head
-invoke-webrequest "${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}" -OutFile test/tce-checksums.txt
+invoke-webrequest '${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_WINDOWS_ZIP_FILE}' -DisableKeepAlive -UseBasicParsing -Method head
+invoke-webrequest '${TCE_REPO_RELEASES_URL}/download/${version}/${TCE_CHECKSUMS_FILE}' -OutFile test/tce-checksums.txt
 
-$Checksum64 = ((Select-String -Path "./test/tce-checksums.txt" -Pattern "tce-windows-amd64-${version}.zip").Line.Split(''))[0]
+$Checksum64 = ((Select-String -Path './test/tce-checksums.txt' -Pattern 'tce-windows-amd64-${version}.zip').Line.Split(''))[0]
 
 # Updating the version in tanzu-community-edition-temp.nuspec file
 $textnuspec = Get-Content .\tanzu-community-edition.nuspec -Raw
