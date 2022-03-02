@@ -35,8 +35,8 @@ git checkout -b $PR_BRANCH
 
 
 # setup
-git config --global --replace-all user.name "aman556"
-git config --global --replace-all user.email "amansharma14041998@gmail.com"
+git config user.name "aman556"
+git config user.email "amansharma14041998@gmail.com"
 
 
 # Testing for current release
