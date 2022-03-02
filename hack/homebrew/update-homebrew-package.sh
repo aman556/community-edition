@@ -19,7 +19,7 @@ TCE_REPO_RELEASES_URL="https://github.com/vmware-tanzu/community-edition/release
 TCE_DARWIN_TAR_BALL_FILE="tce-darwin-amd64-${version}.tar.gz"
 TCE_LINUX_TAR_BALL_FILE="tce-linux-amd64-${version}.tar.gz"
 TCE_CHECKSUMS_FILE="tce-checksums.txt"
-TCE_HOMEBREW_TAP_REPO="https://github.com/vmware-tanzu/homebrew-tanzu"
+TCE_HOMEBREW_TAP_REPO="https://github.com/aman556/homebrew-tanzu"
 
 echo "Checking if the necessary files exist for the TCE ${version} release"
 
@@ -57,6 +57,12 @@ PR_BRANCH="update-tce-to-${version}-${RANDOM}"
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
 git checkout -b "${PR_BRANCH}"
 
+# setup
+git config user.name aman556
+git config user.email amansharma14041998@gmail.com
+
+./test/check-tce-homebrew-formula.sh
+
 # Replacing old version with the latest stable released version.
 # Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
 sed -i.bak "s/version \"v.*/version \"${version}\"/" tanzu-community-edition.rb
@@ -70,9 +76,11 @@ mv tanzu-community-edition-updated.rb tanzu-community-edition.rb
 awk "/sha256 \".*/{c+=1}{if(c==2){sub(\"sha256 \\\".*\",\"sha256 \\\"${linux_amd64_shasum}\\\"\",\$0)};print}" tanzu-community-edition.rb > tanzu-community-edition-updated.rb
 mv tanzu-community-edition-updated.rb tanzu-community-edition.rb
 
+./test/check-tce-homebrew-formula.sh
+
 git add tanzu-community-edition.rb
 
-git commit -m "auto-generated - update tce homebrew formula for version ${version}"
+git commit -s -m "auto-generated - update tce homebrew formula for version ${version}"
 
 git push origin "${PR_BRANCH}"
 
