@@ -80,7 +80,7 @@ Remove-Item test/tce-checksums.txt
 git add tools/chocolateyinstall.ps1
 git add tanzu-community-edition.nuspec
  
-git commit -s -m "auto-generated - update tce choco install scripts for version $version"
+git commit -s -m "a"
 
 git push origin $PR_BRANCH
 
