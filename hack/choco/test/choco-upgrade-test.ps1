@@ -24,11 +24,11 @@ $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
-git clone "${TCE_REPO}"
+git clone $TCE_REPO
 
 cd community-edition/hack/choco
 $RANDOM = Get-Random
-$PR_BRANCH = "update-tce-to-${version}-${RANDOM}"
+$PR_BRANCH = "update-tce-to-$version-$RANDOM"
  
 git checkout -b "${PR_BRANCH}"
 git config –global credential.helper unset
@@ -82,10 +82,10 @@ git add tanzu-community-edition.nuspec
  
 git commit -s -m "auto-generated - update tce choco install scripts for version $version"
 
-git push origin "${PR_BRANCH}"
+git push origin $PR_BRANCH
  
-gh pr create --repo ${TCE_REPO} --title "auto-generated - update tce choco install scripts for version $version" --body "auto-generated - update tce choco install scripts for version $version"
+gh pr create --repo $TCE_REPO --title "auto-generated - update tce choco install scripts for version $version" --body "auto-generated - update tce choco install scripts for version $version"
  
-gh pr merge --repo ${TCE_REPO} ${PR_BRANCH} --squash --delete-branch --auto
+gh pr merge --repo $TCE_REPO $PR_BRANCH --squash --delete-branch --auto
  
-Pop-Location ${temp_dir}
+Pop-Location $temp_dir
