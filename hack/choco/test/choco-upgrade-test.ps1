@@ -52,7 +52,7 @@ $Checksum64 = ((Select-String -Path "./test/tce-checksums.txt" -Pattern "tce-win
 # Updating the version in tanzu-community-edition-temp.nuspec file
 $textnuspec = Get-Content .\tanzu-community-edition.nuspec -Raw
 $temptextnuspec = Get-Content .\tanzu-community-edition.nuspec -Raw 
-$Regex = [Regex]::new("(?<=<version>)(.*)(?=<\/version>)")
+$Regex = [Regex]::new('(?<=<version>)(.*)(?=<\/version>)')
 $oldVersion = $Regex.Match($textnuspec)
 $textnuspec = $textnuspec.Replace( $oldVersion.value  , $version.Substring(1) )
 Set-Content -Path .\tanzu-community-edition.nuspec -Value $textnuspec
@@ -61,12 +61,12 @@ Set-Content -Path .\tanzu-community-edition.nuspec -Value $textnuspec
 # Updating the version in chocolateyinstall.ps1 file
 $textchocoinstall = Get-Content .\tools\chocolateyinstall.ps1 -Raw 
 $temptextchocoinstall = Get-Content .\tools\chocolateyinstall.ps1 -Raw 
-$Regex = [Regex]::new("(?<=releaseVersion = ')(.*)(?=')")
+$Regex = [Regex]::new('(?<=releaseVersion = ')(.*)(?=')')
 $oldVersion = $Regex.Match($textchocoinstall)
 $textchocoinstall = $textchocoinstall.Replace( $oldVersion.value  , $version )
 
 # Updating the Checksum64 in chocolateyinstall.ps1 file
-$Regex = [Regex]::new("(?<=checksum64 = ')(.*)(?=')")
+$Regex = [Regex]::new('(?<=checksum64 = ')(.*)(?=')')
 $oldChecksum64 = $Regex.Match($textchocoinstall)
 $textchocoinstall = $textchocoinstall.Replace( $oldChecksum64.value  , $Checksum64 )
 
@@ -80,11 +80,11 @@ Remove-Item test/tce-checksums.txt
 git add tools/chocolateyinstall.ps1
 git add tanzu-community-edition.nuspec
  
-git commit -s -m 'a'
-
-git push origin $PR_BRANCH
-
-gh pr create --repo $TCE_REPO
+git commit -s -m 'auto-generated - update tce choco install scripts for version ${version}'
+ 
+git push origin "${PR_BRANCH}"
+ 
+gh pr create --repo ${TCE_REPO} --title 'auto-generated - update tce choco install scripts for version ' + $version --body 'auto-generated - update tce choco install scripts for version ' + ${version}
  
 gh pr merge --repo $TCE_REPO $PR_BRANCH --squash --delete-branch --auto
  
