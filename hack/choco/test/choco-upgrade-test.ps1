@@ -31,7 +31,7 @@ $RANDOM = Get-Random
 $PR_BRANCH = "update-tce-to-$version-$RANDOM"
  
 git checkout -b "${PR_BRANCH}"
-#git config –global credential.helper unset
+git config –global credential.helper unset
 
 
 # setup
@@ -84,7 +84,7 @@ git commit -s -m "auto-generated - update tce choco install scripts for version 
 
 git push origin $PR_BRANCH
 
-gh pr create --repo $TCE_REPO  --title "auto-generated - update tce choco install scripts for version ${version}" --body "auto-generated - update tce choco install scripts for version ${version}"
+gh pr create --repo $TCE_REPO  --title "auto-generated" --body "auto-generated"
  
 gh pr merge --repo $TCE_REPO $PR_BRANCH --squash --delete-branch --auto
  
