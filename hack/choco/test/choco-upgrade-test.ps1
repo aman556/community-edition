@@ -31,7 +31,7 @@ $RANDOM = Get-Random
 $PR_BRANCH = "update-tce-to-$version-$RANDOM"
  
 git checkout -b $PR_BRANCH
-git config -global credential.helper unset
+
 
 
 # setup
@@ -81,7 +81,8 @@ git add tools/chocolateyinstall.ps1
 git add tanzu-community-edition.nuspec
  
 git commit -s -m "auto-generated - update tce choco install scripts for version ${version}"
- 
+git config -global credential.helper unset
+
 git push origin $PR_BRANCH
  
 gh pr create --repo ${TCE_REPO} --head "Choco: Update" --title "auto-generated - update tce choco install scripts for version $version" --body "auto-generated - update tce choco install scripts for version ${version}"
