@@ -80,7 +80,7 @@ Remove-Item test/tce-checksums.txt
 git add tools/chocolateyinstall.ps1
 git add tanzu-community-edition.nuspec
  
-git commit -s -m [string]"a"
+git commit -s -m 'a'
 
 git push origin $PR_BRANCH
 
