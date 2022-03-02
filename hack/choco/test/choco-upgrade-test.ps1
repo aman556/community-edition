@@ -85,7 +85,7 @@ git config -global credential.helper unset
 
 git push origin $PR_BRANCH
  
-gh pr create --repo ${TCE_REPO} --head "Choco: Update" --title "auto-generated - update tce choco install scripts for version $version" --body "auto-generated - update tce choco install scripts for version ${version}"
+gh pr create --repo ${TCE_REPO} --title "auto-generated - update tce choco install scripts for version $version" --body "auto-generated - update tce choco install scripts for version ${version}"
  
 gh pr merge --repo $TCE_REPO $PR_BRANCH --squash --delete-branch --auto
  
