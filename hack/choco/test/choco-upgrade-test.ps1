@@ -17,7 +17,7 @@ $temp_dir = Join-Path $Env:Temp $(New-Guid); New-Item -Type Directory -Path $tem
  
 Push-Location $temp_dir
 
-$TCE_REPO = "git@github.com:aman556/community-edition.git"
+$TCE_REPO = "https://github.com/aman556/community-edition.git"
 $TCE_REPO_RELEASES_URL = "https://github.com/vmware-tanzu/community-edition/releases"
 $TCE_WINDOWS_ZIP_FILE="tce-windows-amd64-${version}.zip"
 $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
@@ -31,11 +31,10 @@ cd community-edition/hack/choco
 git remote -v
 git --version
 git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
-
+git remote add origin $TCE_REPO
 $RANDOM = Get-Random
 $PR_BRANCH = "update-tce-to-$version-$RANDOM"
  
- git remote set-url origin $TCE_REPO
 # Random number in branch name in case there's already some branch for the version update,
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and 
 # didn't merge then we are adding another random value for that but as we are testing the brew 
