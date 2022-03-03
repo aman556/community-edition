@@ -80,7 +80,8 @@ mv tanzu-community-edition-updated.rb tanzu-community-edition.rb
 awk "/sha256 \".*/{c+=1}{if(c==2){sub(\"sha256 \\\".*\",\"sha256 \\\"${linux_amd64_shasum}\\\"\",\$0)};print}" tanzu-community-edition.rb > tanzu-community-edition-updated.rb
 mv tanzu-community-edition-updated.rb tanzu-community-edition.rb
 
-#./test/check-tce-homebrew-formula.sh
+# This will do a check on current version before adding it to main.
+./test/check-tce-homebrew-formula.sh
 
 git add tanzu-community-edition.rb
 
