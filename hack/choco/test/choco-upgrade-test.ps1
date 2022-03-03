@@ -90,8 +90,6 @@ Set-Content -Path .\tools\chocolateyinstall.ps1 -Value $textchocoinstall
 Remove-Item test/tce-checksums.txt
 git config --global --unset credential.helper
 
-git config credential.helper store
-
 git add tools/chocolateyinstall.ps1
 git add tanzu-community-edition.nuspec
  
