@@ -35,6 +35,7 @@ git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "http
 $RANDOM = Get-Random
 $PR_BRANCH = "update-tce-to-$version-$RANDOM"
  
+ git remote set-url origin $TCE_REPO
 # Random number in branch name in case there's already some branch for the version update,
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and 
 # didn't merge then we are adding another random value for that but as we are testing the brew 
