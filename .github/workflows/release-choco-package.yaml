@@ -16,8 +16,6 @@ jobs:
         run: |
           git config --global pull.rebase true
           git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
 
 
       - name: Check out code
