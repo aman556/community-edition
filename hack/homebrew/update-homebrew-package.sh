@@ -47,7 +47,9 @@ linux_amd64_shasum=$(grep "${TCE_LINUX_TAR_BALL_FILE}" ${TCE_CHECKSUMS_FILE} | c
 git clone ${TCE_HOMEBREW_TAP_REPO}
 
 cd homebrew-tanzu
-
+git --version
+git remote -v
+git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
 # make sure we are on main branch before checking out
 git checkout main
 
@@ -55,7 +57,14 @@ PR_BRANCH="update-tce-to-${version}-${RANDOM}"
 
 # Random number in branch name in case there's already some branch for the version update,
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
-git checkout -b "${PR_BRANCH}"
+DOES_NEW_BRANCH_EXIST=$(git branch -a | grep remotes | grep "${PR_BRANCH}" || true)
+echo "does branch exist: ${DOES_NEW_BRANCH_EXIST}"
+if [[ "${DOES_NEW_BRANCH_EXIST}" == "" ]]; then
+    git checkout -b "${PR_BRANCH}"
+else
+    PR_BRANCH="${PR_BRANCH}-${RANDOM}"
+    git checkout -b "${PR_BRANCH}"
+fi
 
 # setup
 git config user.name aman556
