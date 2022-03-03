@@ -47,16 +47,13 @@ linux_amd64_shasum=$(grep "${TCE_LINUX_TAR_BALL_FILE}" ${TCE_CHECKSUMS_FILE} | c
 git clone ${TCE_HOMEBREW_TAP_REPO}
 
 cd homebrew-tanzu
-git --version
-git remote -v
-git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
-# make sure we are on main branch before checking out
-git checkout main
 
 PR_BRANCH="update-tce-to-${version}-${RANDOM}"
 
 # Random number in branch name in case there's already some branch for the version update,
-# though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
+# though there shouldn't be one. There could be one if the other branch's PR tests failed and 
+# didn't merge then we are adding another random value for that but as we are testing the brew 
+# formula so no PR will raise if it fails.
 DOES_NEW_BRANCH_EXIST=$(git branch -a | grep remotes | grep "${PR_BRANCH}" || true)
 echo "does branch exist: ${DOES_NEW_BRANCH_EXIST}"
 if [[ "${DOES_NEW_BRANCH_EXIST}" == "" ]]; then
@@ -69,8 +66,6 @@ fi
 # setup
 git config user.name aman556
 git config user.email amansharma14041998@gmail.com
-
-#./test/check-tce-homebrew-formula.sh
 
 # Replacing old version with the latest stable released version.
 # Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
@@ -85,7 +80,7 @@ mv tanzu-community-edition-updated.rb tanzu-community-edition.rb
 awk "/sha256 \".*/{c+=1}{if(c==2){sub(\"sha256 \\\".*\",\"sha256 \\\"${linux_amd64_shasum}\\\"\",\$0)};print}" tanzu-community-edition.rb > tanzu-community-edition-updated.rb
 mv tanzu-community-edition-updated.rb tanzu-community-edition.rb
 
-#./test/check-tce-homebrew-formula.sh
+./test/check-tce-homebrew-formula.sh
 
 git add tanzu-community-edition.rb
 
@@ -95,6 +90,6 @@ git push origin "${PR_BRANCH}"
 
 gh pr create --repo ${TCE_HOMEBREW_TAP_REPO} --title "auto-generated - update tce homebrew formula for version ${version}" --body "auto-generated - update tce homebrew formula for version ${version}"
 
-gh pr merge --repo ${TCE_HOMEBREW_TAP_REPO} "${PR_BRANCH}" --squash --delete-branch --auto
+gh pr merge --repo ${TCE_HOMEBREW_TAP_REPO} "${PR_BRANCH}" --squash --delete-branch --admin
 
 popd

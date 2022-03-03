@@ -30,17 +30,23 @@ cd community-edition/hack/choco
 $RANDOM = Get-Random
 $PR_BRANCH = "update-tce-to-$version-$RANDOM"
  
-git checkout -b $PR_BRANCH
-
-
+# Random number in branch name in case there's already some branch for the version update,
+# though there shouldn't be one. There could be one if the other branch's PR tests failed and 
+# didn't merge then we are adding another random value for that but as we are testing the brew 
+# formula so no PR will raise if it fails.
+DOES_NEW_BRANCH_EXIST=$(git branch -a | Select-String "remotes" | Select-String "${PR_BRANCH}" || true)
+echo "does branch exist: ${DOES_NEW_BRANCH_EXIST}"
+if [[ "${DOES_NEW_BRANCH_EXIST}" == "" ]]; then
+    git checkout -b "${PR_BRANCH}"
+else
+    $RANDOM = Get-Random
+    PR_BRANCH="${PR_BRANCH}-${RANDOM}"
+    git checkout -b "${PR_BRANCH}"
+fi
 
 # setup
 git config user.name "aman556"
 git config user.email "amansharma14041998@gmail.com"
-
-
-# Testing for current release
-& test\e2e-test.ps1
 
 Write-Host "Checking if the necessary files exist for the TCE $version release"
 
@@ -81,12 +87,12 @@ git add tools/chocolateyinstall.ps1
 git add tanzu-community-edition.nuspec
  
 git commit -s -m "auto-generated - update tce choco install scripts for version ${version}"
-git config -global credential.helper unset
+git config --global credential.helper unset
 
 git push origin $PR_BRANCH
  
 gh pr create --repo ${TCE_REPO} --title "auto-generated - update tce choco install scripts for version $version" --body "auto-generated - update tce choco install scripts for version ${version}"
  
-gh pr merge --repo $TCE_REPO $PR_BRANCH --squash --delete-branch --auto
+gh pr merge --repo $TCE_REPO $PR_BRANCH --squash --delete-branch --admin
  
 Pop-Location $temp_dir
