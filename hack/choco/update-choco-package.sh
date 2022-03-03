@@ -44,8 +44,17 @@ cd community-edition
 PR_BRANCH="update-tce-to-${version}-${RANDOM}"
  
 # Random number in branch name in case there's already some branch for the version update,
-# though there shouldn't be one. There could be one if the other branch's PR tests failed and didn't merge
-git checkout -b "${PR_BRANCH}"
+# though there shouldn't be one. There could be one if the other branch's PR tests failed and 
+# didn't merge then we are adding another random value for that but as we are testing the brew 
+# formula so no PR will raise if it fails.
+DOES_NEW_BRANCH_EXIST=$(git branch -a | grep remotes | grep "${PR_BRANCH}" || true)
+echo "does branch exist: ${DOES_NEW_BRANCH_EXIST}"
+if [[ "${DOES_NEW_BRANCH_EXIST}" == "" ]]; then
+    git checkout -b "${PR_BRANCH}"
+else
+    PR_BRANCH="${PR_BRANCH}-${RANDOM}"
+    git checkout -b "${PR_BRANCH}"
+fi
 
 # setup
 git config user.name aman556
