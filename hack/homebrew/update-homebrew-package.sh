@@ -70,7 +70,7 @@ fi
 git config user.name aman556
 git config user.email amansharma14041998@gmail.com
 
-./test/check-tce-homebrew-formula.sh
+#./test/check-tce-homebrew-formula.sh
 
 # Replacing old version with the latest stable released version.
 # Using -i so that it works on Mac and Linux OS, so that it's useful for local development.
@@ -85,7 +85,7 @@ mv tanzu-community-edition-updated.rb tanzu-community-edition.rb
 awk "/sha256 \".*/{c+=1}{if(c==2){sub(\"sha256 \\\".*\",\"sha256 \\\"${linux_amd64_shasum}\\\"\",\$0)};print}" tanzu-community-edition.rb > tanzu-community-edition-updated.rb
 mv tanzu-community-edition-updated.rb tanzu-community-edition.rb
 
-./test/check-tce-homebrew-formula.sh
+#./test/check-tce-homebrew-formula.sh
 
 git add tanzu-community-edition.rb
 
