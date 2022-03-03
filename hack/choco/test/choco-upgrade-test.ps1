@@ -80,7 +80,7 @@ $textchocoinstall = $textchocoinstall.Replace( $oldChecksum64.value  , $Checksum
 Set-Content -Path .\tools\chocolateyinstall.ps1 -Value $textchocoinstall
 
 # Testing for latest release
-& test\e2e-test.ps1
+#& test\e2e-test.ps1
 
 Remove-Item test/tce-checksums.txt
 
