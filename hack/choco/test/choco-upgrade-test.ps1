@@ -34,8 +34,8 @@ $PR_BRANCH = "update-tce-to-$version-$RANDOM"
 # though there shouldn't be one. There could be one if the other branch's PR tests failed and 
 # didn't merge then we are adding another random value for that but as we are testing the brew 
 # formula so no PR will raise if it fails.
-DOES_NEW_BRANCH_EXIST=$(git branch -a | Select-String "remotes" | Select-String "${PR_BRANCH}" || $True)
-echo "does branch exist: ${DOES_NEW_BRANCH_EXIST}"
+$DOES_NEW_BRANCH_EXIST=$(git branch -a | Select-String "remotes" | Select-String "${PR_BRANCH}" || $True)
+Write-Host "does branch exist: ${DOES_NEW_BRANCH_EXIST}"
 if ( "${DOES_NEW_BRANCH_EXIST}" -eq "" ) {
     git checkout -b "${PR_BRANCH}"
 }
