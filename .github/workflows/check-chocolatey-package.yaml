@@ -7,10 +7,6 @@ on:
       - opened
       - synchronize
       - reopened
-    paths:
-      - "hack/choco/"
-      - "!hack/choco/**.md"
-      - ".github/workflows/e2e-chocolatey-package.yaml"
 
 jobs:
   e2e-chocolatey-package-test:
