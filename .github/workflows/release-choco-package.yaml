@@ -6,9 +6,9 @@ on:
       - released
 
 jobs:
-  update-choco-package:
-    name: Update Choco Package
-    runs-on: ubuntu-latest
+  e2e-chocolatey-package-upgrade-test:
+    name: Upgrade Test Chocolatey Package
+    runs-on: windows-latest
     steps:
       - name: Config credentials
         env:
@@ -16,16 +16,21 @@ jobs:
         run: |
           git config --global pull.rebase true
           git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
 
 
       - name: Check out code
         uses: actions/checkout@v1
 
-      - name: Update Choco Package
+      - name: Run Upgrade Tests
+        shell: powershell
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
-        shell: bash
+          ACTUAL_COMMIT_SHA: ${{ github.sha }}
         run: |
-          GITHUB_REF="${{ github.ref }}"
-          version=${GITHUB_REF/refs\/tags\//}
-          ./hack/choco/update-choco-package.sh ${version}
+          cd hack\choco
+          $GITHUB_REF="${{github.ref}}"
+          $pos=$GITHUB_REF.IndexOf("v")
+          $version= $GITHUB_REF.Substring($pos)
+          test\choco-upgrade-test.ps1 -version ${version}
