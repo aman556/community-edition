@@ -6,8 +6,8 @@ on:
       - released
 
 jobs:
-  update-choco-package:
-    name: Update Choco Package
+  e2e-chocolatey-package-upgrade-test:
+    name: Upgrade Test Chocolatey Package
     runs-on: windows-latest
     steps:
       - name: Config credentials
@@ -23,14 +23,13 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
 
-      - name: Update Choco Package
+      - name: Run Upgrade Tests
+        shell: powershell
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
-        shell: bash
         run: |
           cd hack\choco
           $GITHUB_REF="${{github.ref}}"
           $pos=$GITHUB_REF.IndexOf("v")
           $version= $GITHUB_REF.Substring($pos)
           test\choco-upgrade-test.ps1 -version ${version}
-
