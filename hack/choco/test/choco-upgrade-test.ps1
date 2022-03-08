@@ -28,10 +28,6 @@ git clone $TCE_REPO
 
 cd community-edition/hack/choco
 
-git remote -v
-git --version
-git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
-git remote add origin $TCE_REPO
 $RANDOM = Get-Random
 $PR_BRANCH = "update-tce-to-$version-$RANDOM"
  
@@ -85,7 +81,7 @@ $textchocoinstall = $textchocoinstall.Replace( $oldChecksum64.value  , $Checksum
 Set-Content -Path .\tools\chocolateyinstall.ps1 -Value $textchocoinstall
 
 # Testing for latest release
-#& test\e2e-test.ps1
+& test\e2e-test.ps1
 
 Remove-Item test/tce-checksums.txt
 git config --global --unset credential.helper
