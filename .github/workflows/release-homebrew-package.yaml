@@ -27,5 +27,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
         shell: bash
         run: |
-          cd test/e2e
-          ginkgo -v -- --packages=harbor --version=2.2.3 --guest-cluster-name="tce"
+          cd addons/packages/harbor/2.3.3/test
+          make e2e-test
