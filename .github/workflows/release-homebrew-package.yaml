@@ -29,6 +29,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
         shell: bash
         run: |
-          GITHUB_REF="${{ github.ref }}"
-          version=${GITHUB_REF/refs\/tags\//}
-          ./hack/homebrew/update-homebrew-package.sh ${version}
+          cd test/e2e
+          ginkgo -v -- --packages=harbor --version=2.2.3 --guest-cluster-name="tce"
