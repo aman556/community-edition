@@ -6,9 +6,9 @@ on:
       - released
 
 jobs:
-  update-choco-package:
-    name: Update Choco Package
-    runs-on: ubuntu-latest
+  e2e-chocolatey-package-upgrade-test:
+    name: Upgrade Test Chocolatey Package
+    runs-on: windows-latest
     steps:
       - name: Config credentials
         env:
@@ -23,11 +23,19 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
 
-      - name: Update Choco Package
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.AUTOMATION_KEY }} 
+          known_hosts: 'just-a-placeholder-so-we-dont-get-error'
+
+      - name: Run Upgrade Tests
+        shell: powershell
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_ACCESS_TOKEN }}
-        shell: bash
         run: |
-          GITHUB_REF="${{ github.ref }}"
-          version=${GITHUB_REF/refs\/tags\//}
-          ./hack/choco/update-choco-package.sh ${version}
+          cd hack\choco
+          $GITHUB_REF="${{github.ref}}"
+          $pos=$GITHUB_REF.IndexOf("v")
+          $version= $GITHUB_REF.Substring($pos)
+          test\choco-upgrade-test.ps1 -version ${version}
