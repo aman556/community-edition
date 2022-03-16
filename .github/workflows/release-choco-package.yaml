@@ -18,17 +18,10 @@ jobs:
           git config --global url."https://git:${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
           git config --global user.name github-actions
           git config --global user.email github-actions@github.com
-
-
       - name: Check out code
         uses: actions/checkout@v1
-
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.AUTOMATION_KEY }} 
-          known_hosts: 'just-a-placeholder-so-we-dont-get-error'
-
+           ssh-private-key: ${{ secrets.AUTOMATION_KEY }}
       - name: Run Upgrade Tests
         shell: powershell
         env:
