@@ -32,7 +32,7 @@ Start-Service ssh-agent
 # This should return a status of Running
 Get-Service ssh-agent
 
-New-Item -Path '~\.ssh\ssh-private-key' - ItemType File
+New-Item -Path '~\.ssh\ssh-private-key' -ItemType File
 
 Set-Content -Path ~\.ssh\ssh-private-key -Value env:ssh-private-key
 
