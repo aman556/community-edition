@@ -23,7 +23,6 @@ $TCE_WINDOWS_ZIP_FILE="tce-windows-amd64-${version}.zip"
 $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 
 # By default the ssh-agent service is disabled. Allow it to be manually started for the next step to work.
-# Make sure you're running as an Administrator.
 Get-Service ssh-agent | Set-Service -StartupType Manual
 
 # Start the service
@@ -63,7 +62,7 @@ else {
 }
 
 # setup
-git config user.name aman556
+git config user.name aman55
 git config user.email amansharma14041998@gmail.com
 
 Write-Host "Checking if the necessary files exist for the TCE $version release"
