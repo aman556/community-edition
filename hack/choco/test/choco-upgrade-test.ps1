@@ -22,6 +22,18 @@ $TCE_REPO_RELEASES_URL = "https://github.com/vmware-tanzu/community-edition/rele
 $TCE_WINDOWS_ZIP_FILE="tce-windows-amd64-${version}.zip"
 $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 
+# By default the ssh-agent service is disabled. Allow it to be manually started for the next step to work.
+# Make sure you're running as an Administrator.
+Get-Service ssh-agent | Set-Service -StartupType Manual
+
+# Start the service
+Start-Service ssh-agent
+
+# This should return a status of Running
+Get-Service ssh-agent
+
+# Now load your key files into ssh-agent
+ssh-add ~\.ssh\ssh-private-key
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
 git clone $TCE_REPO
@@ -84,19 +96,6 @@ Set-Content -Path .\tools\chocolateyinstall.ps1 -Value $textchocoinstall
 & test\e2e-test.ps1
 
 Remove-Item test/tce-checksums.txt
-
-# By default the ssh-agent service is disabled. Allow it to be manually started for the next step to work.
-# Make sure you're running as an Administrator.
-Get-Service ssh-agent | Set-Service -StartupType Manual
-
-# Start the service
-Start-Service ssh-agent
-
-# This should return a status of Running
-Get-Service ssh-agent
-
-# Now load your key files into ssh-agent
-ssh-add ~\.ssh\ssh-private-key
 
 git add tools/chocolateyinstall.ps1
 git add tanzu-community-edition.nuspec
