@@ -33,9 +33,9 @@ Get-Service ssh-agent
 
 New-Item -Path 'id_ed25519' -ItemType File
 
-Set-Content -Path id_ed25519 -Value env:ssh-private-key
+Set-Content -Path id_ed25519 -Value $ssh-private-key
 
-Write-Host env:ssh-private-key
+Write-Host $ssh-private-key
 Get-Content -Path id_ed25519
 
 # Now load your key files into ssh-agent
