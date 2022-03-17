@@ -31,12 +31,12 @@ Start-Service ssh-agent
 # This should return a status of Running
 Get-Service ssh-agent
 
-New-Item -Path '~\.ssh\ssh-private-key' -ItemType File
+New-Item -Path 'ssh-private-key' -ItemType File
 
-Set-Content -Path ~\.ssh\ssh-private-key -Value env:ssh-private-key
+Set-Content -Path ssh-private-key -Value env:ssh-private-key
 
 # Now load your key files into ssh-agent
-ssh-add ~\.ssh\ssh-private-key
+ssh-add ssh-private-key
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
 git clone $TCE_REPO
