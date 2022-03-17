@@ -62,7 +62,7 @@ else {
 }
 
 # setup
-git config user.name aman55
+git config user.name aman556
 git config user.email amansharma14041998@gmail.com
 
 Write-Host "Checking if the necessary files exist for the TCE $version release"
