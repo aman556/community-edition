@@ -24,6 +24,15 @@ $TCE_REPO_RELEASES_URL = "https://github.com/vmware-tanzu/community-edition/rele
 $TCE_WINDOWS_ZIP_FILE="tce-windows-amd64-${version}.zip"
 $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 
+
+
+New-Item -Path 'id_ed25519' -ItemType File
+
+Set-Content -Path id_ed25519 -Value $env:key
+
+#Write-Host $key
+Get-Content -Path id_ed25519
+
 # By default the ssh-agent service is disabled. Allow it to be manually started for the next step to work.
 Get-Service ssh-agent | Set-Service -StartupType Manual
 
@@ -32,13 +41,6 @@ start ssh-agent
 
 # This should return a status of Running
 Get-Service ssh-agent
-
-New-Item -Path 'id_ed25519' -ItemType File
-
-Set-Content -Path id_ed25519 -Value $env:key
-
-#Write-Host $key
-#Get-Content -Path id_ed25519
 
 # Now load your key files into ssh-agent
 ssh-add id_ed25519
