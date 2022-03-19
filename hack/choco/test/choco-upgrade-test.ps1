@@ -9,12 +9,6 @@ param (
     [string]$version
 )
 
-param (
-    # TCE release version argument
-    [Parameter(Mandatory=$True)]
-    [string]$key
-)
-
 $ErrorActionPreference = 'Stop';
 
 if ((Test-Path env:GITHUB_TOKEN) -eq $False) {
