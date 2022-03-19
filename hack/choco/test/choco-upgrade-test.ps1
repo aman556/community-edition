@@ -28,7 +28,7 @@ $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 Get-Service ssh-agent | Set-Service -StartupType Manual
 
 # Start the service
-Start-Service ssh-agent
+start-ssh-agent.cmd
 
 # This should return a status of Running
 Get-Service ssh-agent
