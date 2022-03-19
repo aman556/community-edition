@@ -28,9 +28,9 @@ $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 
 
 
-#New-Item -Path 'id_ed25519' -ItemType File
+New-Item -Path 'id_ed25519' -ItemType File
 
-#Set-Content -Path id_ed25519 -Value $env:key
+Set-Content -Path id_ed25519 -Value $env:key
 
 #Write-Host $key
 #Get-Content -Path id_ed25519
@@ -47,7 +47,7 @@ start ssh-agent
 Get-Service ssh-agent
 
 # Now load your key files into ssh-agent
-ssh-add $env:key
+ssh-add id_ed25519
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
 git clone $TCE_REPO
