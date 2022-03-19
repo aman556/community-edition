@@ -37,4 +37,4 @@ jobs:
           $GITHUB_REF="${{github.ref}}"
           $pos=$GITHUB_REF.IndexOf("v")
           $version= $GITHUB_REF.Substring($pos)
-          test\choco-upgrade-test.ps1 -version ${version} -key ${key}
+          test\choco-upgrade-test.ps1 -version ${version}
