@@ -44,10 +44,10 @@ Get-Service ssh-agent | Set-Service -StartupType Manual
 start ssh-agent
 
 # This should return a status of Running
-Get-Service ssh-agent
+Get-Service ssh-agent | ssh-add id_ed25519
 
 # Now load your key files into ssh-agent
-ssh-add id_ed25519
+
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
 git clone $TCE_REPO
