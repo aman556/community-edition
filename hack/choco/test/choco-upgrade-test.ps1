@@ -4,6 +4,12 @@
 param (
     # TCE release version argument
     [Parameter(Mandatory=$True)]
+    [string]$key
+)
+
+param (
+    # TCE release version argument
+    [Parameter(Mandatory=$True)]
     [string]$version
 )
 
