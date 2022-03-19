@@ -1,16 +1,18 @@
 # Copyright 2021-2022 VMware Tanzu Community Edition contributors. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-param (
-    # TCE release version argument
-    [Parameter(Mandatory=$True)]
-    [string]$key
-)
+
 
 param (
     # TCE release version argument
     [Parameter(Mandatory=$True)]
     [string]$version
+)
+
+param (
+    # TCE release version argument
+    [Parameter(Mandatory=$True)]
+    [string]$key
 )
 
 $ErrorActionPreference = 'Stop';
