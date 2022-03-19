@@ -47,7 +47,7 @@ start ssh-agent
 Get-Service ssh-agent
 
 # Now load your key files into ssh-agent
-ssh-add \..\..\..\..\..\..\.ssh\id_rsa
+ssh-add $env:key
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
 git clone $TCE_REPO
