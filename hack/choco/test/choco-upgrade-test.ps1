@@ -35,7 +35,7 @@ Get-Service ssh-agent
 
 #New-Item -Path 'id_ed25519' -ItemType File
 
-Set-Content -Path C:\Users\runneradmin\.ssh -Value $key
+#Set-Content -Path C:\Users\runneradmin\.ssh -Value $key
 
 #Write-Host $key
 #Get-Content -Path id_ed25519
