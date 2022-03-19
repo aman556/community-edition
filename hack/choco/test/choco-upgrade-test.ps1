@@ -41,7 +41,7 @@ Set-Content -Path C:\Users\runneradmin\.ssh -Value $key
 #Get-Content -Path id_ed25519
 
 # Now load your key files into ssh-agent
-ssh-add $key
+ssh-add C:\Users\runneradmin\.ssh\id_rsa
 
 # Use --depth 1 once https://github.com/cli/cli/issues/2979#issuecomment-780490392 get resolve
 git clone $TCE_REPO
