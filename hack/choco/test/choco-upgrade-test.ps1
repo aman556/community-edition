@@ -28,9 +28,9 @@ $TCE_CHECKSUMS_FILE = "tce-checksums.txt"
 
 
 
-New-Item -Path 'id_ed25519' -ItemType File
+#New-Item -Path 'id_ed25519' -ItemType File
 
-Set-Content -Path id_ed25519 -Value $env:key
+#Set-Content -Path id_ed25519 -Value $env:key
 
 #Write-Host $key
 #Get-Content -Path id_ed25519
@@ -46,9 +46,7 @@ Start-Service ssh-agent
 # This should return a status of Running
 Get-Service ssh-agent
 
-#eval $(ssh-agent -s)
-
-ssh-add .\id_ed25519
+ssh-add C:\Users\runneradmin\.ssh\id_rsa
 
 # Now load your key files into ssh-agent
 
