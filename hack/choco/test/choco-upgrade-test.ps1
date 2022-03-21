@@ -35,16 +35,18 @@ Set-Content -Path id_ed25519 -Value $env:key
 #Write-Host $key
 #Get-Content -Path id_ed25519
 
-Get-Location
+#Get-Location
 
 # By default the ssh-agent service is disabled. Allow it to be manually started for the next step to work.
-Get-Service ssh-agent | Set-Service -StartupType Manual
+#Get-Service ssh-agent | Set-Service -StartupType Manual
 
 # Start the service
-start ssh-agent
+#start ssh-agent
 
 # This should return a status of Running
 #Get-Service ssh-agent
+
+eval $(ssh-agent -s)
 
 ssh-add .\id_ed25519
 
