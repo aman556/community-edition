@@ -46,7 +46,7 @@ start ssh-agent
 # This should return a status of Running
 #Get-Service ssh-agent
 
-ssh-add id_ed25519
+ssh-add .\id_ed25519
 
 # Now load your key files into ssh-agent
 
