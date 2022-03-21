@@ -41,7 +41,7 @@ Set-Content -Path id_ed25519 -Value $env:key
 Get-Service ssh-agent | Set-Service -StartupType Manual
 
 # Start the service
-start ssh-agent
+Start-Service ssh-agent
 
 # This should return a status of Running
 #Get-Service ssh-agent
