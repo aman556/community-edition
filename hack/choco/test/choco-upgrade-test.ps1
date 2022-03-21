@@ -44,7 +44,7 @@ Get-Service ssh-agent | Set-Service -StartupType Manual
 Start-Service ssh-agent
 
 # This should return a status of Running
-#Get-Service ssh-agent
+Get-Service ssh-agent
 
 #eval $(ssh-agent -s)
 
