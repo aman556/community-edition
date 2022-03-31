@@ -30,10 +30,13 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
 
-      - name: Run Unamanged Cluster E2E Test
+      - name: Install Ginkgo
         run: |
           go install -mod=mod github.com/onsi/ginkgo/v2/ginkgo
           go get github.com/onsi/gomega/...
+
+      - name: Run Unamanged Cluster E2E Test
+        run: |
           make unmanaged-cluster-e2e-test
 
       - name: Collect tanzu diagnostics data
