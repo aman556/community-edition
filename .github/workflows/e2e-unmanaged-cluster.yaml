@@ -16,8 +16,8 @@ on:
     tags-ignore:
       - "**"
 
-  jobs:
-  e2e-unamanged-cluster-test:
+jobs:
+  e2e-unmanaged-cluster-test:
     name: E2E Unmanaged Cluster Test
     runs-on: ubuntu-latest
     steps:
