@@ -23,6 +23,8 @@ require (
 	github.com/k14s/imgpkg v0.6.0
 	github.com/k14s/ytt v0.37.0
 	github.com/olekukonko/tablewriter v0.0.5
+	github.com/onsi/ginkgo v1.16.4
+	github.com/onsi/gomega v1.15.0
 	github.com/spf13/pflag v1.0.5
 	github.com/vmware-tanzu/carvel-kapp-controller v0.34.0
 	github.com/vmware-tanzu/carvel-kbld v0.32.1-0.20220207174123-dd5e71b95085
@@ -70,8 +72,7 @@ require (
 	github.com/mattn/go-runewidth v0.0.12 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/onsi/ginkgo v1.16.4 // indirect
-	github.com/onsi/gomega v1.15.0 // indirect
+	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2-0.20210730191737-8e42a01fb1b7 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
@@ -91,6 +92,7 @@ require (
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
+	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	k8s.io/klog/v2 v2.30.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20211115234752-e816edb12b65 // indirect
 	k8s.io/utils v0.0.0-20211116205334-6203023598ed // indirect
