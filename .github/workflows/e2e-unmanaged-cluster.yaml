@@ -2,11 +2,12 @@
 name: E2E Test - Unamanged Cluster
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-      - release-*
+  pull_request:
+    types:
+      - assigned
+      - opened
+      - synchronize
+      - reopened
     paths:
       - "**.go"
       - "cli/cmd/plugin/"
