@@ -16,7 +16,13 @@ import (
  )
  
 func InstallTCE() (error) {
-	return runDeployScript("utils/installTCE.sh")
+	TopDir := "../../../../../.."
+	err := os.Chdir( TopDir )
+		if err != nil {
+			log.Println("error while changing directory :", err)
+			return err
+		}
+	return runDeployScript("test/build-tce.sh")
 }
 
 func UnInstallTCE() (error) {
