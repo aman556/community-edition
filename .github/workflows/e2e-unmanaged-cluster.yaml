@@ -32,6 +32,8 @@ jobs:
 
       - name: Run Unamanged Cluster E2E Test
         run: |
+          go install -mod=mod github.com/onsi/ginkgo/v2/ginkgo
+          go get github.com/onsi/gomega/...
           make unmanaged-cluster-e2e-test
 
       - name: Collect tanzu diagnostics data
