@@ -12,10 +12,6 @@ import (
 	"github.com/vmware-tanzu/community-edition/cli/cmd/plugin/unmanaged-cluster/test/e2e/utils"
 )
 
-var (
-	clusterName string
-)
-
 var _ = Describe("UnmanagedCluster", func() {
 	Describe("Unmanaged Cluster testing ....", func() {
 		
