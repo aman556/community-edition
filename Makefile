@@ -482,5 +482,5 @@ vsphere-management-and-workload-cluster-e2e-test:
 
 # Unmanaged Cluster E2E Test
 unmanaged-cluster-e2e-test:
-	cd cli/cmd/plugin/unmanaged-cluster/test/e2e && ginkgo -v
+	cd cli/cmd/plugin/unmanaged-cluster/test/e2e && ginkgo
 ##### E2E TESTS
