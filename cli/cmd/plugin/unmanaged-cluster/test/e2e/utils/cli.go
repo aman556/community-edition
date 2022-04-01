@@ -16,13 +16,20 @@ import (
  )
  
 func InstallTCE() (error) {
+
+	err := runDeployScript("utils/install-dependencies.sh")
+	if err != nil {
+		log.Println("error while changing directory :", err)
+		return err
+	}
+
 	TopDir := "../../../../../.."
-	err := os.Chdir( TopDir )
+	err = os.Chdir( TopDir )
 		if err != nil {
 			log.Println("error while changing directory :", err)
 			return err
 		}
-		cliRunner("pwd",nil)
+
 	return runDeployScript("test/build-tce.sh")
 }
 
