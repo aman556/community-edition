@@ -47,6 +47,8 @@ var _ = Describe("UnmanagedCluster", func() {
 				log.Println("error while unmanaged cluster deletion")
 			}
 			Expect(err).NotTo(HaveOccurred())
+			// Check for containers
+			
 		})
 
 	})
