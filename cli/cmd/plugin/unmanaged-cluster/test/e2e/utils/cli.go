@@ -22,7 +22,7 @@ func InstallTCE() (error) {
 			log.Println("error while changing directory :", err)
 			return err
 		}
-		cliRunner(pwd,nil)
+		cliRunner("pwd",nil)
 	return runDeployScript("test/build-tce.sh")
 }
 
