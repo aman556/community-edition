@@ -26,7 +26,7 @@ func InstallTCE() (error) {
 			return err
 		}
 		_, err = cliRunner("ls", nil)
-	err = runDeployScript("install-dependencies.sh")
+	err = runDeployScript("test/install-dependencies.sh")
 	if err != nil {
 		log.Println("error while changing directory :", err)
 		return err
