@@ -19,7 +19,7 @@ func InstallTCE() (error) {
 
 	
 
-	TopDir := "../../../../../../test/utils"
+	TopDir := "../../../../../../test/util"
 	err := os.Chdir( TopDir )
 		if err != nil {
 			log.Println("error while changing directory :", err)
