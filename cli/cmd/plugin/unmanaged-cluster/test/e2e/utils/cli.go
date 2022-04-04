@@ -16,14 +16,12 @@ import (
 )
 
 func InstallTCE() error {
-	/*err := runDeployScript("utils/install-dependencies.sh")
+	err := runDeployScript("utils/install-dependencies.sh")
 	if err != nil {
 		log.Fatal(err)
 		return err
-	}*/
-	//gitPath := cliRunner("git", "rev-parse", "--show-toplevel")
-	//gitPath = gitPath + "/cli/cmd/plugin/unmanaged-cluster/test/e2e/utils"
-	wd, err := os.Getwd()
+	}
+	wd, err = os.Getwd()
 	if err != nil {
 		log.Println("error while getting current working directory", err)
 	}
@@ -35,9 +33,6 @@ func InstallTCE() error {
 	return runDeployScript("test/build-tce.sh")
 }
 
-func UnInstallTCE() error {
-	return runDeployScript("utils/uninstallTCE.sh")
-}
 
 func runDeployScript(filename string) error {
 	mwriter := io.MultiWriter(os.Stdout)
