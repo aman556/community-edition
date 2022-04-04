@@ -6,7 +6,7 @@
 set -e
 set -x
 
-cd tce-darwin-amd64-v0.11.0
+cd tce-darwin-linux-v0.11.0
 # TCE uninstallation
 ./uninstall.sh
 
