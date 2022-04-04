@@ -2,16 +2,21 @@
 name: E2E Test - Unamanged Cluster
 
 on:
-  workflow_dispatch:
+  repository_dispatch:
+    types: [daily-build]
+
   push:
     branches:
-      - test-uc-e2e-test
+      - main
+      - release-*
 
     paths:
       - "**.go"
       - "cli/cmd/plugin/"
       - "**.sh"
       - ".github/workflows/e2e-unmanaged-cluster.yaml"
+      - "**.md"
+      - "Makefile"
 
     tags-ignore:
       - "**"
@@ -19,7 +24,9 @@ on:
 jobs:
   e2e-unmanaged-cluster-test:
     name: E2E Unmanaged Cluster Test
-    runs-on: ubuntu-latest
+    # Only run this job if we're in the main repo, not a fork.
+    if: github.repository == 'vmware-tanzu/community-edition'
+    runs-on: macos-latest
     steps:
       - name: Set up Go 1.x
         uses: actions/setup-go@v2
@@ -35,7 +42,6 @@ jobs:
           go install -mod=mod github.com/onsi/ginkgo/v2/ginkgo
           go get github.com/onsi/gomega/...
           ginkgo version
-
       - name: Run Unamanged Cluster E2E Test
         run: |
           make unmanaged-cluster-e2e-test

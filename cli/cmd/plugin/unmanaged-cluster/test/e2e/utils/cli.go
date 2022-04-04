@@ -21,9 +21,9 @@ func InstallTCE() error {
 		log.Fatal(err)
 		return err
 	}
-	gitPath := cliRunner("git", "rev-parse", "--show-toplevel")
-	gitPath = gitPath + "/cli/cmd/plugin/unmanaged-cluster/test/e2e/utils"
-	return runDeployScript(gitPath + "build-tce.sh")
+	//gitPath := cliRunner("git", "rev-parse", "--show-toplevel")
+	//gitPath = gitPath + "/cli/cmd/plugin/unmanaged-cluster/test/e2e/utils"
+	return runDeployScript("utils/build-tce.sh")
 }
 
 func UnInstallTCE() error {
