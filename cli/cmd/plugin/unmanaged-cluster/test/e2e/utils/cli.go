@@ -21,7 +21,7 @@ func InstallTCE() error {
 		log.Fatal(err)
 		return err
 	}
-	wd, err = os.Getwd()
+	wd, err := os.Getwd()
 	if err != nil {
 		log.Println("error while getting current working directory", err)
 	}
