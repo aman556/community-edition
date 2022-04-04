@@ -2,13 +2,10 @@
 name: E2E Test - Unamanged Cluster
 
 on:
-  repository_dispatch:
-    types: [daily-build]
-
+  workflow_dispatch:
   push:
     branches:
-      - main
-      - release-*
+      - test-uc-e2e-test
 
     paths:
       - "**.go"
@@ -16,7 +13,6 @@ on:
       - "**.sh"
       - ".github/workflows/e2e-unmanaged-cluster.yaml"
       - "**.md"
-      - "Makefile"
 
     tags-ignore:
       - "**"
