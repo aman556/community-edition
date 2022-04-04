@@ -12,6 +12,8 @@ MY_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 tar -xf "${MY_DIR}"/../tce-darwin-amd64-v0.11.0.tar.gz
 rm -f "${MY_DIR}"/../tce-darwin-amd64-v0.11.0.tar.gz
 
+ls
+
 cd tce-darwin-amd64-v0.11.0
 
 # TCE installation
