@@ -11,9 +11,9 @@ export BUILD_OS
 
 # Make sure docker is installed
 echo "Checking for Docker..."
-if [[ -z "$(command -v docker)" ]]; then
+if [ -z "$(command -v docker)" ]; then
     echo "Installing Docker..."
-    if [[ "$BUILD_OS" == "Linux" ]]; then
+    if [ "${BUILD_OS}" == "Linux" ]; then
         sudo apt-get update > /dev/null
         sudo apt-get install -y \
             apt-transport-https \
@@ -31,10 +31,10 @@ if [[ -z "$(command -v docker)" ]]; then
         sudo service docker start
         sleep 30s
 
-        if [[ $(id -u) -ne 0 ]]; then
+        if [ "$(id -u)" -ne 0 ]; then
             sudo usermod -aG docker "$(whoami)"
         fi
-    elif [[ "$(BUILD_OS)" == "Darwin" ]]; then
+    elif [ "$(BUILD_OS)" == "Darwin" ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         brew cask install docker
     fi
@@ -52,20 +52,20 @@ fi
 
 # Make sure kubectl is installed
 echo "Checking for kubectl..."
-if [[ -z "$(command -v kubectl)" ]]; then
+if [ -z "$(command -v kubectl)" ]; then
     echo "Installing kubectl..."
-    if [[ "$BUILD_OS" == "Linux" ]]; then
+    if [ "$BUILD_OS" == "Linux" ]; then
         curl -LO https://dl.k8s.io/release/v1.20.1/bin/linux/amd64/kubectl
-    elif [[ "$BUILD_OS" == "Darwin" ]]; then
-        if [[ "$BUILD_ARCH" == "x86_64" ]]; then
+    elif [ "$BUILD_OS" == "Darwin" ]; then
+        if [ "$BUILD_ARCH" == "x86_64" ]; then
             curl -LO https://dl.k8s.io/release/v1.20.1/bin/darwin/amd64/kubectl
-        elif [[ "$BUILD_ARCH" == "arm64" ]]; then
+        elif [ "$BUILD_ARCH" == "arm64" ]; then
             curl -LO https://dl.k8s.io/release/v1.20.1/bin/darwin/arm64/kubectl
         else
             error "$BUILD_OS-$BUILD_ARCH NOT SUPPORTED!!!"
         fi
     else
-        error "$BUILD_OS NOT SUPPORTED!!!"
+        error "${BUILD_OS}" NOT SUPPORTED!!!"
         exit 1
     fi
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
