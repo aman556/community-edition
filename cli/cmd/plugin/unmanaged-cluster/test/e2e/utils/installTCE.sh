@@ -7,7 +7,7 @@ set -e
 set -x
 
 
-wget  https://github.com/vmware-tanzu/community-edition/releases/download/v0.11.0/tce-darwin-amd64-v0.11.0.tar.gz
+wget  https://github.com/vmware-tanzu/community-edition/releases/download/v0.11.0/tce-linux-amd64-v0.11.0.tar.gz
 
 #MY_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 TCE_REPO_PATH="$(git rev-parse --show-toplevel)"
