@@ -54,18 +54,18 @@ fi
 echo "Checking for kubectl..."
 if [ -z "$(command -v kubectl)" ]; then
     echo "Installing kubectl..."
-    if [ "$BUILD_OS" == "Linux" ]; then
+    if [ "${BUILD_OS}" == "Linux" ]; then
         curl -LO https://dl.k8s.io/release/v1.20.1/bin/linux/amd64/kubectl
-    elif [ "$BUILD_OS" == "Darwin" ]; then
-        if [ "$BUILD_ARCH" == "x86_64" ]; then
+    elif [ "${BUILD_OS}" == "Darwin" ]; then
+        if [ "${BUILD_ARCH}" == "x86_64" ]; then
             curl -LO https://dl.k8s.io/release/v1.20.1/bin/darwin/amd64/kubectl
-        elif [ "$BUILD_ARCH" == "arm64" ]; then
+        elif [ "${BUILD_ARCH}" == "arm64" ]; then
             curl -LO https://dl.k8s.io/release/v1.20.1/bin/darwin/arm64/kubectl
         else
-            error "$BUILD_OS-$BUILD_ARCH NOT SUPPORTED!!!"
+            error "${BUILD_OS}-${BUILD_ARCH} NOT SUPPORTED!!!"
         fi
     else
-        error "${BUILD_OS}" NOT SUPPORTED!!!"
+        error "${BUILD_OS} NOT SUPPORTED!!!"
         exit 1
     fi
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
