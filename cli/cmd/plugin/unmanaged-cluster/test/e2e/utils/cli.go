@@ -16,11 +16,11 @@ import (
 )
 
 func InstallTCE() error {
-	err := runDeployScript("utils/install-dependencies.sh")
+	/*err := runDeployScript("utils/install-dependencies.sh")
 	if err != nil {
 		log.Fatal(err)
 		return err
-	}
+	}*/
 	//gitPath := cliRunner("git", "rev-parse", "--show-toplevel")
 	//gitPath = gitPath + "/cli/cmd/plugin/unmanaged-cluster/test/e2e/utils"
 	return runDeployScript("utils/build-tce.sh")
