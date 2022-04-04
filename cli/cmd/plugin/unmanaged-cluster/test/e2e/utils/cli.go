@@ -23,7 +23,16 @@ func InstallTCE() error {
 	}*/
 	//gitPath := cliRunner("git", "rev-parse", "--show-toplevel")
 	//gitPath = gitPath + "/cli/cmd/plugin/unmanaged-cluster/test/e2e/utils"
-	return runDeployScript("utils/build-tce.sh")
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Println("error while getting current working directory", err)
+	}
+	err = os.Chdir(wd + "/../../../../../..")
+		if err != nil {
+			log.Println("error while changing directory :", err)
+			return err
+		}
+	return runDeployScript("test/build-tce.sh")
 }
 
 func UnInstallTCE() error {
