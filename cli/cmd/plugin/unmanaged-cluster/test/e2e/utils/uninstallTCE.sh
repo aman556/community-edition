@@ -11,4 +11,4 @@ cd tce-darwin-amd64-v0.11.0
 ./uninstall.sh
 
 cd ..
-rm -rf tce-darwin-amd64-v0.11.0
+rm -rf tce-linux-amd64-v0.11.0

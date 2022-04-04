@@ -18,7 +18,7 @@ rm -f "${E2E_REPO_PATH}"/tce-linux-amd64-v0.11.0.tar.gz
 
 ls
 "${E2E_REPO_PATH}"/utils/install-dependencies.sh
-cd tce-darwin-amd64-v0.11.0
+cd tce-linux-amd64-v0.11.0
 
 
 # TCE installation
