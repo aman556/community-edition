@@ -21,7 +21,7 @@ func InstallTCE() error {
 		log.Fatal(err)
 		return err
 	}
-	return runDeployScript("utils/build-tce.sh")
+	return runDeployScript("utils/installTCE.sh")
 }
 
 func UnInstallTCE() error {
