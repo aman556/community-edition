@@ -16,12 +16,12 @@ import (
 )
 
 func InstallTCE() error {
-	/*err := runDeployScript("utils/install-dependencies.sh")
+	err := runDeployScript("utils/install-dependencies.sh")
 	if err != nil {
 		log.Fatal(err)
 		return err
-	}*/
-	return runDeployScript("utils/installTCE.sh")
+	}
+	return runDeployScript("utils/build-tce.sh")
 }
 
 func UnInstallTCE() error {
