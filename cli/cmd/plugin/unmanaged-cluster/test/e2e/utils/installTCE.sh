@@ -17,8 +17,9 @@ tar -xf "${E2E_REPO_PATH}"/tce-darwin-amd64-v0.11.0.tar.gz
 rm -f "${E2E_REPO_PATH}"/tce-darwin-amd64-v0.11.0.tar.gz
 
 ls
-
+"${E2E_REPO_PATH}"/utils/install-dependencies.sh
 cd tce-darwin-amd64-v0.11.0
+
 
 # TCE installation
 ./install.sh
