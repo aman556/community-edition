@@ -13,8 +13,8 @@ wget  https://github.com/vmware-tanzu/community-edition/releases/download/v0.11.
 TCE_REPO_PATH="$(git rev-parse --show-toplevel)"
 E2E_REPO_PATH="${TCE_REPO_PATH}/cli/cmd/plugin/unmanaged-cluster/test/e2e"
 ls
-tar -xf "${E2E_REPO_PATH}"/tce-darwin-amd64-v0.11.0.tar.gz
-rm -f "${E2E_REPO_PATH}"/tce-darwin-amd64-v0.11.0.tar.gz
+tar -xf "${E2E_REPO_PATH}"/tce-linux-amd64-v0.11.0.tar.gz
+rm -f "${E2E_REPO_PATH}"/tce-linux-amd64-v0.11.0.tar.gz
 
 ls
 "${E2E_REPO_PATH}"/utils/install-dependencies.sh
