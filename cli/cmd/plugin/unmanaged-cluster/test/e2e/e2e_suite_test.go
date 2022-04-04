@@ -28,13 +28,6 @@ var _ = BeforeSuite(func() {
   
  var _ = AfterSuite(func() {
 	
-	Describe("TCE deletion", func() {
-		err := e2e.UnInstallTCE()
-		if err != nil {
-			log.Println("error while uninstalling TCE")
-		}
-		Expect(err).NotTo(HaveOccurred())
-	})
 	
  })
  
