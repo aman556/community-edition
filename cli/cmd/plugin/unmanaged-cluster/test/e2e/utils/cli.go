@@ -1,4 +1,4 @@
-// Copyright 2022 VMware Tanzu Community Edition contributors. All Rights Reserved.
+// Copyright 2021-2022 VMware Tanzu Community Edition contributors. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 package e2e
@@ -11,37 +11,26 @@ import (
 	"os"
 	"os/exec"
 	"strings"
-  
+
 	"github.com/onsi/ginkgo"
- )
- 
-func InstallTCE() (error) {
+)
 
-	
-
-	TopDir := "../../../../../../test/util"
-	err := os.Chdir( TopDir )
-		if err != nil {
-			log.Println("error while changing directory :", err)
-			return err
-		}
-		_, err = cliRunner("ls", nil)
-	//err = runDeployScript("test/install-dependencies.sh")
+func InstallTCE() error {
+	err := runDeployScript("utils/install-dependencies.sh")
 	if err != nil {
-		log.Println("error while changing directory :", err)
+		log.Fatal(err)
 		return err
 	}
-
-	return runDeployScript("test/build-tce.sh")
+	return runDeployScript("utils/build-tce.sh")
 }
 
-func UnInstallTCE() (error) {
+func UnInstallTCE() error {
 	return runDeployScript("utils/uninstallTCE.sh")
 }
 
- func runDeployScript(filename string) (error) {
+func runDeployScript(filename string) error {
 	mwriter := io.MultiWriter(os.Stdout)
-	cmd := exec.Command("/bin/sh", filename ) //nolint:gosec
+	cmd := exec.Command("/bin/sh", filename)
 	cmd.Stderr = mwriter
 	cmd.Stdout = mwriter
 	err := cmd.Run() // blocks until sub process is complete

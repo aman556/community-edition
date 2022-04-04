@@ -482,5 +482,5 @@ vsphere-management-and-workload-cluster-e2e-test:
 
 # Unmanaged Cluster E2E Test
 unmanaged-cluster-e2e-test:
-	cd cli/cmd/plugin/unmanaged-cluster/test/e2e && go test 
+	cd cli/cmd/plugin/unmanaged-cluster/test/e2e && go test -timeout 180m
 ##### E2E TESTS
