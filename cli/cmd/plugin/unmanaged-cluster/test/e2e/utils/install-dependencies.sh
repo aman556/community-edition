@@ -34,7 +34,7 @@ if [ -z "$(command -v docker)" ]; then
         if [ "$(id -u)" -ne 0 ]; then
             sudo usermod -aG docker "$(whoami)"
         fi
-    elif [ "$(BUILD_OS)" == "Darwin" ]; then
+    elif [ "${BUILD_OS}" == "Darwin" ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         brew cask install docker
     fi
