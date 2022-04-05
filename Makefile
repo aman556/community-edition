@@ -499,4 +499,7 @@ docker-management-and-cluster-e2e-test:
 # vSphere Management + Workload Cluster E2E Test
 vsphere-management-and-workload-cluster-e2e-test:
 	BUILD_VERSION=$(BUILD_VERSION) test/vsphere/run-tce-vsphere-management-and-workload-cluster.sh
+
+unmanaged-cluster-e2e-test:
+	cd cli/cmd/plugin/unmanaged-cluster/test/e2e && go test -timeout 180m
 ##### E2E TESTS
