@@ -20,7 +20,7 @@ on:
 jobs:
   e2e-unmanaged-cluster-test:
     name: E2E Unmanaged Cluster Test
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Set up Go 1.x
         uses: actions/setup-go@v2

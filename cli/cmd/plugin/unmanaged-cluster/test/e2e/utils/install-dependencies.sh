@@ -76,3 +76,5 @@ if [ -z "$(command -v kubectl)" ]; then
 else
     echo "Found kubectl!"
 fi
+
+sudo -s
