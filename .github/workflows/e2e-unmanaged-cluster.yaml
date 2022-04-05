@@ -36,7 +36,9 @@ jobs:
           go install -mod=mod github.com/onsi/ginkgo/v2/ginkgo
           go get github.com/onsi/gomega/...
           ginkgo version
-      - name: Run Unamanged Cluster E2E Test
+
+      - name: Run Unmanaged Cluster E2E Test
+        shell: bash
         run: |
           make unmanaged-cluster-e2e-test
 
