@@ -18,6 +18,11 @@ func InstallTCE() error {
 		log.Fatal(err)
 		return err
 	}
+	err = runDeployScript("utils/uninstall.sh")
+	if err != nil {
+		log.Fatal(err)
+		return err
+	}
 	wd, err := os.Getwd()
 	if err != nil {
 		log.Println("error while getting current working directory", err)
