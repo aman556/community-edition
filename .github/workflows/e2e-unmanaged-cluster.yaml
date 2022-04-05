@@ -10,6 +10,7 @@ on:
     branches:
       - main
       - release-*
+      - e2e-test-uc-2
 
     paths:
       - "**.go"
