@@ -35,7 +35,7 @@ unmanagedClusterPluginVersions:
 
 
 echo "abcd"
-cat ~/.config/tanzu/tkg/unmanaged/compatibility/projects.registry.vmware.com_tce_compatibility_v4
+cat /home/ubuntu/.config/tanzu/tkg/unmanaged/compatibility/projects.registry.vmware.com_tce_compatibility_v4
 
 # Make sure docker is installed
 echo "Checking for Docker..."
