@@ -14,7 +14,7 @@ sudo -s
 whoami
 type source
 ls "${TCE_REPO_PATH}/test/util/utils.sh"
-source "${TCE_REPO_PATH}/test/util/utils.sh"
+. "${TCE_REPO_PATH}/test/util/utils.sh"
 
 BUILD_OS=$(uname -s)
 export BUILD_OS
