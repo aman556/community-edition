@@ -37,6 +37,7 @@ if [ -z "$(command -v docker)" ]; then
     elif [ "${BUILD_OS}" == "Darwin" ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         brew install docker
+        systemctl start docker
     fi
 else
     echo "Found Docker!"
