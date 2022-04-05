@@ -36,7 +36,7 @@ func InstallTCE() error {
 
 func runDeployScript(filename string) error {
 	mwriter := io.MultiWriter(os.Stdout)
-	cmd := exec.Command("/bin/sh", filename)
+	cmd := exec.Command("/bin/bash", filename)
 	cmd.Stderr = mwriter
 	cmd.Stdout = mwriter
 	err := cmd.Run() // blocks until sub process is complete
