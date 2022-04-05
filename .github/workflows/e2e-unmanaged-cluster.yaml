@@ -26,7 +26,7 @@ on:
 jobs:
   e2e-unmanaged-cluster-test:
     name: E2E Unmanaged Cluster Test
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Set up Go 1.x
         uses: actions/setup-go@v2
@@ -42,9 +42,41 @@ jobs:
           go install -mod=mod github.com/onsi/ginkgo/v2/ginkgo
           go get github.com/onsi/gomega/...
           ginkgo version
+
+      - name: Cleaning up Github Actions runner
+        run: |
+          df -h
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf "/usr/local/share/boost"
+          df -h
+
       - name: Run Unamanged Cluster E2E Test
         run: |
+          mkdir -p ~/.config/tanzu/tkg/unmanaged/compatibility/
+          echo 'version: v1
+          unmanagedClusterPluginVersions:
+          - version: v0.12.0-dev.1
+            supportedTkrVersions:
+              - image: projects.registry.vmware.com/tce/tkr:v0.17.0-dev-2
+              - image: projects.registry.vmware.com/tce/tkr:v0.17.0-dev-1
+              - image: projects.registry.vmware.com/tce/tkr:v0.17.0
+              - image: projects.registry.vmware.com/tce/tkr:v1.22.5
+          - version: dev
+            supportedTkrVersions:
+              - image: projects.registry.vmware.com/tce/tkr:v0.17.0-dev-2
+              - image: projects.registry.vmware.com/tce/tkr:v0.17.0-dev-1
+              - image: projects.registry.vmware.com/tce/tkr:v0.17.0
+              - image: projects.registry.vmware.com/tce/tkr:v1.22.5
+          - version: v0.11.0
+            supportedTkrVersions:
+              - image: projects.registry.vmware.com/tce/tkr:v0.17.0
+              - image: projects.registry.vmware.com/tce/tkr:v1.22.5
+          - version: v0.10.0
+            supportedTkrVersions:
+              - image: projects.registry.vmware.com/tce/tkr:v0.21.5' > ~/.config/tanzu/tkg/unmanaged/compatibility/projects.registry.vmware.com_tce_compatibility_v4
           make unmanaged-cluster-e2e-test
+
       - name: Collect tanzu diagnostics data
         uses: actions/upload-artifact@v2
         if: ${{ always() }}
