@@ -33,6 +33,10 @@ unmanagedClusterPluginVersions:
   supportedTkrVersions:
   - image: projects.registry.vmware.com/tce/tkr:v0.21.5' > ~/.config/tanzu/tkg/unmanaged/compatibility/projects.registry.vmware.com_tce_compatibility_v4
 
+
+echo "abcd"
+cat ~/.config/tanzu/tkg/unmanaged/compatibility/projects.registry.vmware.com_tce_compatibility_v4
+
 # Make sure docker is installed
 echo "Checking for Docker..."
 if [[ -z "$(command -v docker)" ]]; then
