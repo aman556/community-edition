@@ -20,7 +20,7 @@ var _ = BeforeSuite(func() {
 	Describe("TCE installation...", func() {
 		err := e2e.InstallTCE()
 		if err != nil {
-			log.Println("error while installingggg TCE")
+			log.Println("error while installing TCE")
 		}
 		Expect(err).NotTo(HaveOccurred())
 	})
