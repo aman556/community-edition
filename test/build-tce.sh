@@ -30,7 +30,7 @@ elif [[ $BUILD_OS == "Darwin" ]]; then
 fi
 ./uninstall.sh || { error "TCE CLEANUP (UNINSTALLATION) FAILED!"; exit 1; }
 
-mkdir -p /home/ubuntu/.config/tanzu/tkg/unmanaged/compatibility/projects.registry.vmware.com_tce_compatibility_v4
+mkdir -p /home/ubuntu/.config/tanzu/tkg/unmanaged/compatibility
 
 echo 'version: v1
 unmanagedClusterPluginVersions:
