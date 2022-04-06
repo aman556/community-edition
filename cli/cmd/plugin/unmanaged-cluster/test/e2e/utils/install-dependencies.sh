@@ -9,32 +9,7 @@ BUILD_OS=$(uname -s)
 BUILD_ARCH=$(uname -m 2>/dev/null || echo Unknown)
 export BUILD_OS
 
-mkdir -p /home/ubuntu/.config/tanzu/tkg/unmanaged/compatibility/projects.registry.vmware.com_tce_compatibility_v4
 
-echo 'version: v1
-unmanagedClusterPluginVersions:
-- version: v0.12.0-dev.1
-  supportedTkrVersions:
-  - image: projects.registry.vmware.com/tce/tkr:v0.17.0-dev-2
-  - image: projects.registry.vmware.com/tce/tkr:v0.17.0-dev-1
-  - image: projects.registry.vmware.com/tce/tkr:v0.17.0
-  - image: projects.registry.vmware.com/tce/tkr:v1.22.5
-- version: dev
-  supportedTkrVersions:
-  - image: projects.registry.vmware.com/tce/tkr:v0.17.0-dev-2
-  - image: projects.registry.vmware.com/tce/tkr:v0.17.0-dev-1
-  - image: projects.registry.vmware.com/tce/tkr:v0.17.0
-  - image: projects.registry.vmware.com/tce/tkr:v1.22.5
-- version: v0.11.0
-  supportedTkrVersions:
-  - image: projects.registry.vmware.com/tce/tkr:v0.17.0
-  - image: projects.registry.vmware.com/tce/tkr:v1.22.5
-- version: v0.10.0
-  supportedTkrVersions:
-  - image: projects.registry.vmware.com/tce/tkr:v0.21.5' > /home/ubuntu/.config/tanzu/tkg/unmanaged/compatibility/projects.registry.vmware.com_tce_compatibility_v4
-
-
-echo "abcd"
 cat /home/ubuntu/.config/tanzu/tkg/unmanaged/compatibility/projects.registry.vmware.com_tce_compatibility_v4
 
 # Make sure docker is installed
