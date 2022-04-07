@@ -5,6 +5,11 @@ on:
   repository_dispatch:
     types: [daily-build]
 
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - cli/cmd/plugin/unmanaged-cluster
+
   workflow_dispatch:
   push:
     branches:
@@ -13,7 +18,7 @@ on:
       - e2e-test-uc-2
 
     paths:
-      - "**.go"
+      - "cli/cmd/plugin/unmanaged-cluster/*.go"
       - "cli/cmd/plugin/"
       - "**.sh"
       - ".github/workflows/e2e-unmanaged-cluster.yaml"
