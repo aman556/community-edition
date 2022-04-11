@@ -8,6 +8,16 @@
 BUILD_OS=$(uname -s)
 export BUILD_OS
 # Make sure docker is installed
+dpkg -l | grep -i docker
+sudo apt-get purge -y docker-engine docker docker.io docker-ce docker-ce-cli
+sudo apt-get autoremove -y --purge docker-engine docker docker.io docker-ce
+sudo rm -rf /var/lib/docker /etc/docker
+sudo rm /etc/apparmor.d/docker
+sudo groupdel docker
+sudo rm -rf /var/run/docker.sock
+sudo rm -rf /usr/local/bin/docker-compose
+sudo rm -rf /etc/docker
+sudo rm -rf ~/.docker
 echo "Checking for Docker..."
 if [[ -z "$(command -v docker)" ]]; then
    echo "Installing Docker..."
