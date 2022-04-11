@@ -58,7 +58,7 @@ jobs:
 
       - name: Run Unamanged Cluster E2E Test
         run: |
-
+          make unmanaged-cluster-e2e-test
 
       - name: Collect tanzu diagnostics data
         uses: actions/upload-artifact@v2
