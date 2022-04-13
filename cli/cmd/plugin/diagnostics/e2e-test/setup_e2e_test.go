@@ -4,6 +4,7 @@
 package e2e_test
 
 import (
+	"bytes"
 	"fmt"
 	"testing"
 	"os"
@@ -11,6 +12,7 @@ import (
 	"io"
 	"os/exec"
 	"log"
+	//"go/build"
 )
 
 
@@ -31,7 +33,9 @@ const (
 	TCE_RELEASE_TAR_BALL := "tce-" + BUILD_OS + "-amd64-" + TCE_VERSION + ".tar.gz"
 	TCE_RELEASE_DIR := "tce-" + BUILD_OS + "-amd64-" + TCE_VERSION
 	INSTALLATION_DIR := MY_DIR + "/tce-installation"
-	
+	TANZU_DIAGNOSTICS_PLUGIN_DIR= MY_DIR + "/.."
+	TANZU_DIAGNOSTICS_BIN := MY_DIR + "/tanzu-diagnostics-e2e-bin"
+
 	fmt.Println(BUILD_OS)
 	fmt.Println(MY_DIR)
 	fmt.Println(TCE_RELEASE_TAR_BALL)
@@ -39,13 +43,15 @@ const (
 	fmt.Println(INSTALLATION_DIR)
 	fmt.Println(TCE_REPO_PATH)
 	
-	//runDeployScript(TCE_REPO_PATH + "/hack/get-tce-release.sh", TCE_VERSION, BUILD_OS + "-amd64")
+	runDeployScript(TCE_REPO_PATH + "/hack/get-tce-release.sh", TCE_VERSION, BUILD_OS + "-amd64")
 	if err := os.Mkdir(INSTALLATION_DIR, os.ModePerm); err != nil {
         log.Fatal(err)
     }
 
-	// tar
+	cliRunner("tar", nil, "xvzf", TCE_RELEASE_TAR_BALL, "--directory=" + INSTALLATION_DIR)
 	runDeployScript(INSTALLATION_DIR + "/" + TCE_RELEASE_DIR + "/install.sh")
+	Tanzu(nil, "unmanaged-cluster", "version")
+	cliRunner("go", nil, "-o", TANZU_DIAGNOSTICS_BIN, "-v")
  }
 
 
@@ -61,3 +67,29 @@ const (
 	return err
  }
   
+ func Tanzu(input io.Reader, args ...string) (string, error) {
+	return cliRunner("tanzu", input, args...)
+ }
+
+ func cliRunner(name string, input io.Reader, args ...string) (string, error) {
+   var stdOut bytes.Buffer
+   mwriter := io.MultiWriter(&stdOut, os.Stderr)
+   cmd := exec.Command(name, args...)
+   cmd.Stdin = input
+   cmd.Stdout = mwriter
+   cmd.Stderr = mwriter
+ 
+   err := cmd.Run()
+   if err != nil {
+       rc := -1
+       if ee, ok := err.(*exec.ExitError); ok {
+           rc = ee.ExitCode()
+       }
+ 
+       return "", fmt.Errorf("%s\nexit status: %d", err.Error(), rc)
+   }
+ 
+   return stdOut.String(), err
+}
+  
+
