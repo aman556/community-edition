@@ -41,9 +41,8 @@ func InstallTCE() error {
        log.Fatal(err)
        return err
    }
-   return nil
    // build.sh is creating a release and installing TCE for latest code
-   return runDeployScript("test/build-tce.sh")
+   return runDeployScript("test/download-or-build-tce.sh")
 }
  
 func runDeployScript(filename string) error {
