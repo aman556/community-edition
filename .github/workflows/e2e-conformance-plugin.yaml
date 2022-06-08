@@ -1,0 +1,27 @@
+name: E2E Test - Conformance Plugin
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - release-*
+      - conformance-e2e-test
+    paths:
+      - "cli/cmd/plugin/conformance/"
+      - "!cli/cmd/plugin/conformance/**.md"
+      - ".github/workflows/e2e-conformance-plugin.yaml"
+    tags-ignore:
+      - "**"
+
+jobs:
+  e2e-test-conformance-plugin:
+    name: E2E Test - conformance plugin
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v1
+
+      - name: Run E2E Tests - Conformance Plugin
+        run: |
+          make conformance-e2e-test
