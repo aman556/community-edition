@@ -1,12 +1,10 @@
 name: E2E Test - Conformance Plugin
 
 on:
-  pull_request:
-    types:
-      - assigned
-      - opened
-      - synchronize
-      - reopened
+  workflow_dispatch:
+  push:
+    branches:
+      - conformance-e2e-test
     paths:
       - "cli/cmd/plugin/conformance/"
       - "!cli/cmd/plugin/conformance/**.md"
