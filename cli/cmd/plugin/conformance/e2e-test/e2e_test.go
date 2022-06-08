@@ -3,8 +3,6 @@
 // Copyright 2022 VMware Tanzu Community Edition contributors. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-//test
-
 package e2e_test
 
 import (
@@ -22,6 +20,7 @@ var tceRepoPath string
 var clusterName string
 var conformanceDirPath string
 var unmanagedClusterDirPath string
+var conformanceResultFilename string
 
 func initializeVariable() {
 	// Variables used across functions
@@ -59,7 +58,7 @@ func TestConformance(t *testing.T) {
 	}
 
 	// Retrieving Conformance result file
-	conformanceResultFilename, err := cliRunner("go", nil, "run", ".", "retrieve")
+	conformanceResultFilename, err = cliRunner("go", nil, "run", ".", "retrieve")
 	if err != nil {
 		t.Errorf("Error while retrieving the conformance result filename: %v", err)
 	}
