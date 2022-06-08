@@ -20,6 +20,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
 
-      - name: Run E2E Tests - Conformance Plugin
+      - name: Run E2E Test - Conformance Plugin
         run: |
           make conformance-e2e-test
