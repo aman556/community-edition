@@ -91,7 +91,7 @@ func TestCleanUp(t *testing.T) {
 		t.Errorf("error while changing directory to unmanged-cluster: %v", err)
 	}
 
-	_, err = cliRunner("go", nil, "run", ".", "delete", "testconf")
+	_, err = cliRunner("go", nil, "run", ".", "delete", clusterName)
 	if err != nil {
 		t.Errorf("Error while Unmanaged Cluster deletion: %v", err)
 	}
