@@ -6,7 +6,7 @@ on:
     branches:
       - conformance-e2e-test
     paths:
-      - "cli/cmd/plugin/conformance/"
+      - "cli/cmd/plugin/conformance/**"
       - "!cli/cmd/plugin/conformance/**.md"
       - ".github/workflows/e2e-conformance-plugin.yaml"
     tags-ignore:
