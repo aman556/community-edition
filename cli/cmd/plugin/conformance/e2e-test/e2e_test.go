@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"os/exec"
 )
-
+//test
 var tceRepoPath string
 var clusterName string
 var conformanceDirPath string
